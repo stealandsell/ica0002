@@ -3,3 +3,14 @@
     name: nginx
     state: latest
 
+- name: Copy Nginx default config to sites-enabled
+  copy:
+    src:  default
+    dest: /etc/nginx/sites-enabled/default
+  notify: restart nginx
+
+- name: start n enable nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
