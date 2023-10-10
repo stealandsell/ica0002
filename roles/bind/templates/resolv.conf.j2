@@ -1,0 +1,9 @@
+{% for vm in groups['dns_server'] %}
+nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+{% endfor %}
+
+{% for search_domain in startup_name %}
+{% if search_domain %}
+search {{ search_domain }}
+{% endif %}
+{% endfor %}

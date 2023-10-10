@@ -3,9 +3,15 @@
     hosts: all
     roles:
       - init
+      
+  - name: DNS servers
+    hosts: dns_server  
+    roles:
+      - bind
+      
 
   - name: Database server
-    hosts: db_servers
+    hosts: db_server
     roles:
       - mysql
       

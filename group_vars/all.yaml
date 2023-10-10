@@ -1,4 +1,4 @@
-mysql_host: 192.168.43.195
+mysql_host: "{{ hostvars['stealandsell-2']['ansible_default_ipv4']['address'] }}"
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -8,3 +8,5 @@ mysql_password: !vault |
           37393732666235373430366333363962326665643932643766336332393238613438323564396133
           3136323431323662660a643464396665633130643138306564323135663530346363326366643339
           6261
+          
+startup_name: gamblinggreats.io

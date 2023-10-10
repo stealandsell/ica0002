@@ -6,3 +6,6 @@ stealandsell-1
 
 [db_servers]
 stealandsell-2
+
+[dns_server]
+stealandsell-2
