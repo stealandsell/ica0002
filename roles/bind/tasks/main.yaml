@@ -8,7 +8,7 @@
 - name: copy the config 
   template:
     src:  named.conf.options
-    dest: /etc/bind/named.conf.option
+    dest: /etc/bind/named.conf.options
   notify: restart bind9
 
 - name: DNS Zone
@@ -17,12 +17,3 @@
     dest: /var/lib/bind/db.gamblinggreats.io
   notify: reload rndc
 
-- name: Stop systemd-resolved
-  service:
-    name: systemd-resolved
-    state: stopped
-
-- name: Change DNS configuration 
-  template:
-    src: resolv.conf.j2
-    dest: /etc/resolv.conf

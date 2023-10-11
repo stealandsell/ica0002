@@ -26,11 +26,11 @@ options {
 	listen-on-v6 { any; };
 };
 
-zone "aethan.io" {
+zone "{{ startup_name }}" {
 	type primary;
-	file "db.aethan.io";
+	file "db.{{ startup_name }}";
 	allow-transfer {
-		192.168.42.121;
-		192.168.43.40;
+		192.168.42.197;
+		192.168.42.95;
 	};
 };

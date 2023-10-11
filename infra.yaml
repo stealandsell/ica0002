@@ -8,10 +8,16 @@
     hosts: dns_server  
     roles:
       - bind
+    tags: bind
+    
+  - name: DNS Resolved
+    hosts: all
+    roles:
+      - dns_resolved
       
 
   - name: Database server
-    hosts: db_server
+    hosts: db_servers
     roles:
       - mysql
       
