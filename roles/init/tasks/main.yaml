@@ -18,6 +18,17 @@
 #  authorized_key:
 #    user: juri
 #    key: https://github.com/hudolejev.keys
+
+- name: install packages
+  apt:
+    name: 
+      - prometheus-node-exporter
+
+- name: start & enable node exporter
+  service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes
     
 - name: Update APT cache
   ansible.builtin.apt:

@@ -1,0 +1,26 @@
+- name: install prometheus
+  apt:
+    name: 
+      - prometheus
+
+- name: copy confs
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "prometheus.yml.j2", dest: "/etc/prometheus/prometheus.yml" }
+    - { src: "prometheus.j2", dest: "/etc/systemd/system/prometheus.service" }
+  notify: 
+    - reload daemon
+    - restart prometheus
+    - restart nginx
+
+
+- name: execute handlers
+  meta: flush_handlers
+
+- name: start prometheus
+  service:
+    name: prometheus
+    state: started
+    enabled: yes

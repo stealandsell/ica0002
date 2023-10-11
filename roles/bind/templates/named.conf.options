@@ -30,7 +30,8 @@ zone "{{ startup_name }}" {
 	type primary;
 	file "db.{{ startup_name }}";
 	allow-transfer {
-		192.168.42.197;
-		192.168.42.95;
+		{% for vm in hostvars %}
+               {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+               {% endfor %}
 	};
 };

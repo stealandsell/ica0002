@@ -3,6 +3,7 @@
     hosts: all
     roles:
       - init
+    tags: always
       
   - name: DNS servers
     hosts: dns_server  
@@ -26,4 +27,17 @@
     roles:
       - agama
       - uwsgi
+    tags: n
+  #    - nginx
+   
+  - name: nginx conf
+    hosts: all
+    roles:
       - nginx
+    
+       
+  - name: Configure Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
+    tags: prom

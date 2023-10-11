@@ -10,3 +10,9 @@ mysql_password: !vault |
           6261
           
 startup_name: gamblinggreats.io
+
+ssh_ip: 193.40.156.67
+localhost: 127.0.0.1
+
+vm1_port: "{{ hostvars['stealandsell-1']['ansible_default_ipv4']['address'].split('.')[3] }}80"
+vm2_port: "{{ hostvars['stealandsell-2']['ansible_default_ipv4']['address'].split('.')[3] }}80"
