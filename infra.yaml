@@ -41,3 +41,10 @@
     roles:
       - prometheus
     tags: prom
+           
+  - name: Configure Grafana
+    hosts: grafana
+    roles:
+      - grafana
+
+    

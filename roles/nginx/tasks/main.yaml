@@ -14,3 +14,18 @@
     name: nginx
     state: started
     enabled: yes
+    
+### nginx exporter part
+
+- name: Install nginx exporter
+  apt:
+    name: prometheus-nginx-exporter
+  notify: 
+    - Reload systemd
+    - Restart Nginx exporter
+
+- name: Enable exporter
+  service:
+    name: prometheus-nginx-exporter
+    state: started
+    enabled: yes

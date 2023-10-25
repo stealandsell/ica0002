@@ -1,11 +1,22 @@
 server {
 	listen 80 default_server;
+	listen 8080 default_server;
+	
 	server_name _;
+	
+	client_header_buffer_size 512k;
+	large_client_header_buffers 4 512k;
+
 
 	location / {
 		uwsgi_pass localhost:5000;
 		include uwsgi_params;
 	}
+	
+
+        location /stub_status {
+                stub_status;
+        }
 
 
 	{% if inventory_hostname in groups['prometheus'] %}
@@ -17,8 +28,33 @@ server {
 	{% if inventory_hostname in groups['node_exporters'] %}
 
         location /metrics {
-		proxy_pass http://{{ localhost }}:9100/metrics;
+		proxy_pass http://{{ localhost }}:{{ prometheus_exporters['node']['port'] }}/metrics;
 	}
         {% endif %}
        
+
+        location /nginx-metrics {
+                proxy_pass http://{{ localhost }}:{{ prometheus_exporters['nginx']['port'] }}/metrics;
+        }
+        
+        
+        {% if inventory_hostname in groups['db_servers'] %}
+        location /mysql-metrics {
+		proxy_pass http://{{localhost}}:{{ prometheus_exporters['mysql']['port'] }}/metrics;
+	}
+        {% endif %}
+        
+	{% if inventory_hostname in groups['node_exporters'] %}
+        location /bind-metrics {
+		proxy_pass http://{{localhost}}:{{ prometheus_exporters['bind']['port'] }}/metrics;
+	}
+        {% endif %}
+
+
+        {% if inventory_hostname in groups['grafana'] %}
+        location /grafana {
+                 proxy_set_header Host $http_host;
+                 proxy_pass http://{{localhost}}:{{grafana_port}};
+    	}
+        {% endif %}
 }

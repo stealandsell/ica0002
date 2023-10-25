@@ -17,3 +17,15 @@
     dest: /var/lib/bind/db.gamblinggreats.io
   notify: reload rndc
 
+
+### bind exporter part
+
+- name: Install Bind9 exporter
+  apt:
+    name: prometheus-bind-exporter
+
+- name: Enable Bind9 exporter
+  service:
+    name: prometheus-bind-exporter
+    state: started
+    enabled: yes

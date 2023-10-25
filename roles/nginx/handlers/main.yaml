@@ -2,3 +2,12 @@
   service:
     name: nginx
     state: restarted
+    
+- name: Reload systemd
+  shell: "systemctl daemon-reload"
+
+- name: Restart Nginx exporter
+  service:
+    name: prometheus-nginx-exporter
+    state: restarted
+    enabled: yes

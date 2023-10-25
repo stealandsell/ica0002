@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+{% for vm in groups['prometheus'] %}
+    url: http://{{ vm }}:9090/prometheus
+{% endfor %}
+    password:
+    user:
+    database:
+    isDefault: true
+    version: 1
+    editable: false
+    method: POST

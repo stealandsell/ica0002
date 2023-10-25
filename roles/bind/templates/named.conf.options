@@ -26,6 +26,10 @@ options {
 	listen-on-v6 { any; };
 };
 
+statistics-channels {
+  inet {{ localhost }} port 8053 allow { {{ localhost }}; };
+};
+
 zone "{{ startup_name }}" {
 	type primary;
 	file "db.{{ startup_name }}";
