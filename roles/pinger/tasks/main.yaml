@@ -1,0 +1,43 @@
+- name: Install fping
+  apt:
+    name: 
+      - fping
+      - curl
+    state: latest
+
+
+- name: Add the user "pinger"
+  user:
+    name: pinger
+
+- name: Create pinger configuration directory
+  file:
+    path: /etc/pinger
+    state: directory
+
+
+- name: Create pinger configuration
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "pinger.conf.j2", dest: "/etc/pinger/pinger.conf" }
+    - { src: "pinger.service.j2", dest: "/etc/systemd/system/pinger.service" }
+  notify: 
+    - reload systemd
+    - restart pinger
+
+
+- name: Setup pinger script
+  template:
+    src: pinger.sh.j2
+    dest: /usr/local/bin/pinger
+    mode: 0555
+  notify: restart pinger
+    
+
+- name: start & enable pinger
+  service:
+    name: pinger.service
+    state: started
+    enabled: yes

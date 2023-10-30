@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Validate configuration file
+if [ ! -f /etc/pinger/pinger.conf ]; then
+  logger "$0 Failed to find configuration file"
+  exit 1
+fi
+
+# Read configuration variables
+database_url=$(grep "^database_url=" /etc/pinger/pinger.conf | sed 's/^database_url=//')
+database_name=$(grep "^database_name=" /etc/pinger/pinger.conf | sed 's/^database_name=//')
+targets=$(grep "^targets=" /etc/pinger/pinger.conf | sed 's/^targets=//')
+
+# Validate configuration variables
+if [ -z "$database_url" ] || [ -z "$database_name" ] || [ -z "$targets" ]; then
+  logger "$0 Failed to read all required configuration variables"
+  exit 1
+fi
+
+# Validate database URL
+#if ! grep -q "^https://" <<<"$database_url"; then
+#  logger "$0 Failed, database URL must use HTTPS protocol"
+#  exit 1
+#fi
+
+# Validate database name
+if grep -q "[^a-zA-Z0-9_]" <<<"$database_name"; then
+  logger "$0 Failed, database name contains forbidden characters"
+  exit 1
+fi
+
+targets=$(grep "^targets=" /etc/pinger/pinger.conf | sed 's/^.*=//' | sed 's/\(,\|;\)/ /g')
+
+if ! grep -v "[]^\!@#$%()[{}|_=+\`\"\'~?<>,\:/-]" <<<"$targets" | grep -Eq "[a-z0-9.]* {0,1}"; then
+    logger "$0 Failed, incorrect links to targets. Possible issues: use of special forbidden symbols, incorrect string pattern."
+    exit 1
+fi
+
+# Check if fping is installed
+which fping > /dev/null || (logger "fping not found"; exit 1)
+
+# Create database
+curl -k -XPOST "${database_url}/query" --data-urlencode "q=CREATE DATABASE $database_name" 1>/dev/null 2>/dev/null
+
+# Run pinger in loop
+while true; do
+  result=$(fping -C1 -q $targets 2>&1 | awk -v db=$database_name '{print db",dst="$1" rtt="$3}')
+  curl -k -XPOST "${database_url}/write?db=$database_name" --data-binary "$result" 1>/dev/null 2>/dev/null
+  sleep 1
+done
+

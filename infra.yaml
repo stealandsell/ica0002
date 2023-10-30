@@ -47,4 +47,10 @@
     roles:
       - grafana
 
+  - name: InfluxDB, Telegraf, pinger
+    hosts: influxdb
+    roles:
+      - influxdb
+      - pinger
+    tags: 8l
     

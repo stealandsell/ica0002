@@ -1,0 +1,11 @@
+[Unit]
+Description=unit that makes pings to google.com,cloudflare.com,twitter.com amd writes response to db
+Documentation=none
+After=network-online.target
+
+[Service]
+User=pinger
+ExecStart=/usr/local/bin/pinger
+
+[Install]
+WantedBy=multi-user.target

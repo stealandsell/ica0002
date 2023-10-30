@@ -1,0 +1,59 @@
+
+- name: Download packages
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { url: "https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb", dest: "/opt/influxdb_1.8.10_amd64.deb" }
+    - { url: "https://dl.influxdata.com/telegraf/releases/telegraf_1.28.2-1_amd64.deb", dest: "/opt/telegraf_1.28.2-1_amd64.deb" }
+
+- name: Install packages
+  apt:
+    deb: "{{ item.deb }}"
+  loop:
+    - { deb: "/opt/influxdb_1.8.10_amd64.deb" }
+    - { deb: "/opt/telegraf_1.28.2-1_amd64.deb" }
+
+
+  
+- name: Reconfigure telegraf & influxdb
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "telegraf.conf", dest: "/etc/telegraf/telegraf.conf" }
+    - { src: "influxdb.conf", dest: "/etc/telegraf/influxdb.conf" }
+  notify: restart telegraf
+  
+
+- name: Start and enable services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - influxdb
+    - telegraf
+    
+    
+### influxdb exporter part
+
+- name: Prometheus influxdb exporter
+  get_url:
+    url: https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64
+    dest: /usr/local/bin/influx_stats_exporter_linux_amd64
+    mode: 0555
+
+- name: Copy service template
+  template:
+    src: influxdb_exporter.conf.j2
+    dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
+  notify:
+    - reload daemon
+    - restart influxdb exporter
+
+- name: Influxdb Exporter
+  service:
+    name: prometheus-influxdb-stats-exporter
+    state: started
+    enabled: yes

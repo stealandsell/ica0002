@@ -36,3 +36,10 @@ scrape_configs:
           {% for vm in groups['dns_server'] %}
            - {{ hostvars[vm]['inventory_hostname'] }}:{{ prometheus_exporters['bind']['port'] }}
           {% endfor %}
+
+  - job_name: influxdb
+    static_configs:
+      - targets:
+          {% for vm in groups['influxdb'] %}
+           - {{ hostvars[vm]['inventory_hostname'] }}:{{ prometheus_exporters['influxdb']['port'] }}
+          {% endfor %}

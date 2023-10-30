@@ -34,11 +34,14 @@
   no_log: true
   notify: restart grafana
   
-- name: Configure main dashboard
-  copy:
-    src: main.json
-    dest: /var/lib/grafana/dashboards/main.json
-  notify: restart Grafana
+
+- name: Copy jsons
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/var/lib/grafana/dashboards/{{ item }}"
+  loop:
+    - main.json
+    - syslog.json
   
 - name: grafna started & enabled
   service:

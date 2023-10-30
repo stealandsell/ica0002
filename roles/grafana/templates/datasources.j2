@@ -15,3 +15,29 @@ datasources:
     version: 1
     editable: false
     method: POST
+    
+  - name: InfluxDB:latency
+    type: influxdb
+    access: proxy
+    orgId: 1
+{% for vm in groups['influxdb'] %}
+    url: http://{{ vm }}:8086
+{% endfor %}
+    password:
+    user:
+    database: latency
+    editable: true
+    method: POST
+
+  - name: InfluxDB:telegraf
+    type: influxdb
+    access: proxy
+    orgId: 1
+{% for vm in groups['influxdb'] %}
+    url: http://{{ vm }}:8086
+{% endfor %}
+    password:
+    user:
+    database: telegraf
+    editable: true
+    method: POST

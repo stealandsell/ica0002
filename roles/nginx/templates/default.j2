@@ -57,4 +57,12 @@ server {
                  proxy_pass http://{{localhost}}:{{grafana_port}};
     	}
         {% endif %}
+        
+        
+        {% if inventory_hostname in groups['influxdb'] %}
+        location /influxdb-metrics {
+
+                 proxy_pass http://{{localhost}}:{{ prometheus_exporters['influxdb']['port'] }}/metrics;
+    	}
+        {% endif %}
 }

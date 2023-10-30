@@ -1,0 +1,13 @@
+- name: restart telegraf
+  service:
+    name: telegraf
+    state: restarted
+    enabled: yes
+    
+- name: reload daemon
+  shell: "systemctl daemon-reload"
+
+- name: restart influxdb exporter
+  service:
+    name: prometheus-influxdb-stats-exporter
+    state: restarted

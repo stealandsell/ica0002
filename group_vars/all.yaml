@@ -37,6 +37,8 @@ vm2_port: "{{ hostvars['stealandsell-2']['ansible_default_ipv4']['address'].spli
 
 
 grafana_port: 3000
+pinger_port: 8086
+rsyslog_port: 6514
 
 prometheus_exporters:
   node:
