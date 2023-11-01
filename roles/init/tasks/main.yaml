@@ -42,18 +42,12 @@
   apt:
     name: ca-certificates=20230311ubuntu0.20.04.1
     
-<<<<<<< HEAD
-    
-=======
 #### syslog part
->>>>>>> lab 9 donee
 
 - name: install rsyslog
   apt:
     name: rsyslog
     state: latest
-<<<<<<< HEAD
-=======
 
 - name: copy conf
   template:
@@ -85,7 +79,6 @@
     mode: 0644
     owner: backup
     group: backup
->>>>>>> lab 9 donee
 
 - name: copy conf
   template:

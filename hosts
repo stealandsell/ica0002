@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-stealandsell-1 ansible_host=193.40.156.67 ansible_port=34422 ansible_user=ubuntu
-stealandsell-2 ansible_host=193.40.156.67 ansible_port=38822 ansible_user=ubuntu
-=======
 stealandsell-1 ansible_host=193.40.156.67 ansible_port=9522 ansible_user=ubuntu
 stealandsell-2 ansible_host=193.40.156.67 ansible_port=11522 ansible_user=ubuntu
->>>>>>> lab 9 donee
 
 [web_servers]
 stealandsell-1
