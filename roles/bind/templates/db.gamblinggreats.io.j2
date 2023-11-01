@@ -14,3 +14,6 @@ gamblinggreats.io.	IN	NS	{{ vm }}.gamblinggreats.io.
 {% for vm in hostvars %}
 {{ hostvars[vm]['inventory_hostname'] }}	IN	A	{{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
+
+
+backup                                        IN	A       {{ backup_ip}}

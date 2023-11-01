@@ -22,7 +22,9 @@
 - name: Update APT cache
   ansible.builtin.apt:
     cache_valid_time: 86400
-    
+
+### prometheus exporter part
+
 - name: install packages
   apt:
     name: 
@@ -34,16 +36,56 @@
     state: started
     enabled: yes
     
+### ca certificates part
+    
 - name: Ensure ca-certificates is up-to-date
   apt:
     name: ca-certificates=20230311ubuntu0.20.04.1
     
+<<<<<<< HEAD
     
+=======
+#### syslog part
+>>>>>>> lab 9 donee
 
 - name: install rsyslog
   apt:
     name: rsyslog
     state: latest
+<<<<<<< HEAD
+=======
+
+- name: copy conf
+  template:
+    src: 50-telegraf.conf
+    dest: /etc/rsyslog.d/50-telegraf.conf
+  notify: restart rsyslog
+  
+- name: Start & enable
+  service:
+    name: rsyslog
+    state: started
+    enabled: yes
+    
+    
+### backup part
+
+- name: create backup user
+  user:
+    name: backup
+    move_home: yes
+    home: /home/backup
+    generate_ssh_key: yes
+    ssh_key_file: /home/backup/.ssh/id_rsa.pub
+    
+- name: Create template known_hosts
+  template: 
+    src: known_hosts
+    dest: /home/backup/.ssh/known_hosts
+    mode: 0644
+    owner: backup
+    group: backup
+>>>>>>> lab 9 donee
 
 - name: copy conf
   template:

@@ -29,8 +29,11 @@ grafana_p: !vault |
           
 startup_name: gamblinggreats.io
 
+backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
 ssh_ip: 193.40.156.67
 localhost: 127.0.0.1
+backup_ip: 192.168.42.132
 
 vm1_port: "{{ hostvars['stealandsell-1']['ansible_default_ipv4']['address'].split('.')[3] }}80"
 vm2_port: "{{ hostvars['stealandsell-2']['ansible_default_ipv4']['address'].split('.')[3] }}80"

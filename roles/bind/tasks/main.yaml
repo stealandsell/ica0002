@@ -5,18 +5,18 @@
       - python3-dnspython 
     state: latest
 
-- name: copy the config 
-  template:
-    src:  named.conf.options
-    dest: /etc/bind/named.conf.options
-  notify: restart bind9
 
-- name: DNS Zone
+- name: copy confs
   template:
-    src: db.gamblinggreats.io.j2
-    dest: /var/lib/bind/db.gamblinggreats.io
-  notify: reload rndc
-
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "named.conf.options", dest: "/etc/bind/named.conf.options" }
+    - { src: "db.gamblinggreats.io.j2", dest: "/var/lib/bind/db.gamblinggreats.io" }
+  notify: 
+    - restart bind9
+    - reload rndc
+    
 
 ### bind exporter part
 
