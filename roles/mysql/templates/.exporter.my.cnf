@@ -1,3 +1,4 @@
 [client]
 user={{ mysql_ex_u }}
 password={{ mysql_ex_p }}
+

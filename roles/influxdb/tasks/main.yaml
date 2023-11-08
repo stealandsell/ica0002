@@ -1,3 +1,4 @@
+### influxdb & telegraf part
 
 - name: Download packages
   get_url:
@@ -57,3 +58,22 @@
     name: prometheus-influxdb-stats-exporter
     state: started
     enabled: yes
+    
+    
+### influxdb backup part
+
+- name: create /backup/influxdb directory     
+  file:
+    path: /home/backup/influxdb
+    state: directory
+    mode: 0700
+    owner: backup
+    group: backup
+    
+- name: Create backup file
+  template:
+    src: influxdb-backup
+    dest: /etc/cron.d/influxdb-backup
+    owner: backup
+    group: backup
+    mode: 0400

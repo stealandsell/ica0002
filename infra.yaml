@@ -21,6 +21,7 @@
     hosts: db_servers
     roles:
       - mysql
+    tags: m
       
   - name: nginx
     hosts: web_servers

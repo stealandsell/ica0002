@@ -1,0 +1,6 @@
+[client]
+user={{backup_u}}
+password={{backup_p}}
+
+[mysqldump]
+no_tablespaces
