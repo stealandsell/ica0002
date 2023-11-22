@@ -42,6 +42,7 @@
   loop:
     - main.json
     - syslog.json
+    - mysql.json
   
 - name: grafna started & enabled
   service:

@@ -11,7 +11,7 @@
     enabled: yes
 
 - name: override 
-  copy:
+  template:
     src:  override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify: restart mysql
@@ -26,15 +26,38 @@
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
-- name: Database user
+#- name: Database user
+#  mysql_user:
+#    name: "{{ mysql_user }}"
+#    host: "%"
+#    password: "{{ mysql_password }}"
+#    priv: "{{ mysql_database }}.*:ALL"
+#    login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+    
+- name: Create MySQL users
   mysql_user:
-    name: "{{ mysql_user }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.priv }}"
     host: "%"
-    password: "{{ mysql_password }}"
-    priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  loop:
+    - { name: "{{ mysql_user }}", password: "{{ mysql_password }}", priv: "{{ mysql_database }}.*:ALL" }
+    - { name: "{{ mysql_ex_u }}", password: "{{ mysql_ex_p }}", priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT" }
+    - { name: "{{ mysql_replication_u }}", password: "{{ mysql_replication_p }}", priv: "*.*:REPLICATION SLAVE" }
+  notify: restart mysql
+  no_log: true
     
-    
+- name: replica  read-only ON
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - source reset
+    - reset replica
     
 ###### mysql exporter part
 
@@ -73,13 +96,13 @@
 #    mode: 0600
 #  notify: Restart MySQL exporter
 
-- name: Create MySQL exporter user
-  mysql_user:
-    name: "{{ mysql_ex_u }}"
-    password: "{{ mysql_ex_p }}"
-    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-  no_log: true
+#- name: Create MySQL exporter user
+#  mysql_user:
+#    name: "{{ mysql_ex_u }}"
+#    password: "{{ mysql_ex_p }}"
+#    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
+#    login_unix_socket: /var/run/mysqld/mysqld.sock
+#  no_log: true
 
 - name: Force all notified handlers to run at this point, not waiting for normal sync points
   meta: flush_handlers

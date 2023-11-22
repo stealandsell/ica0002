@@ -21,14 +21,18 @@
     hosts: db_servers
     roles:
       - mysql
-    tags: m
+    tags:
+      - db
+      - mx
       
   - name: nginx
     hosts: web_servers
     roles:
       - agama
       - uwsgi
-    tags: n
+    tags:
+      - web
+      - mx
   #    - nginx
    
   - name: nginx conf

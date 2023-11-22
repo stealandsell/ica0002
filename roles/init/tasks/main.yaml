@@ -20,7 +20,7 @@
 #    key: https://github.com/hudolejev.keys
     
 - name: Update APT cache
-  ansible.builtin.apt:
+  apt:
     cache_valid_time: 86400
 
 ### prometheus exporter part
