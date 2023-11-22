@@ -8,10 +8,17 @@ server {
 	large_client_header_buffers 4 512k;
 
 
+	{% if inventory_hostname in groups['agama']%}
+	{% set port = 8000 %}
+	{% for item in range(1,agama_per_vm+1) %}
+	{% for vm in groups['agama'] %}
 	location / {
-		uwsgi_pass localhost:5000;
-		include uwsgi_params;
+                 proxy_pass http://localhost:{{port+item}};
+                 proxy_set_header Host $http_host;
 	}
+	{% endfor %}
+	{% endfor %}
+	{% endif %}
 	
 
         location /stub_status {

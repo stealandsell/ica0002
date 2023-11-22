@@ -68,9 +68,11 @@ vm2_port: 43380
 
 node_id: "{{ (ansible_port / 100) | int }}"
 
-grafana_port: 3000
+grafana_port: 3001
 pinger_port: 8086
 rsyslog_port: 6514
+
+agama_per_vm: 1
 
 prometheus_exporters:
   node:

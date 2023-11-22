@@ -16,6 +16,10 @@
     roles:
       - dns_resolved
       
+  - name: Docker
+    hosts: docker
+    roles:
+      - docker
 
   - name: Database server
     hosts: db_servers
@@ -29,16 +33,17 @@
     hosts: web_servers
     roles:
       - agama
-      - uwsgi
+#      - uwsgi
     tags:
       - web
       - mx
-  #    - nginx
+
    
   - name: nginx conf
     hosts: all
     roles:
       - nginx
+    tags: nginx
     
        
   - name: Configure Prometheus

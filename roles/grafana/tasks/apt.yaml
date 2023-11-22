@@ -1,0 +1,51 @@
+- name: Add an apt key
+  apt_key:
+    url: https://apt.grafana.com/gpg.key
+    
+- name: Add Grafana APT repository
+  apt_repository:
+    repo: deb https://apt.grafana.com stable main
+    state: present
+
+- name: Dependencies for Grafana and Grafana itself
+  apt: 
+    name:
+      - adduser
+      - libfontconfig1
+      - grafana 
+      
+- name: create dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+    - /var/lib/grafana/dashboards/
+    - /opt/grafana/provisioning/datasources      
+      
+- name: copy confs
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "grafana.ini.j2", dest: "/etc/grafana/grafana.ini" }
+    - { src: "datasources.j2", dest: "/etc/grafana/provisioning/datasources/prometheus.yaml" }
+    - { src: "dashboard.j2", dest: "/etc/grafana/provisioning/dashboards/sample.yaml" }
+  no_log: true
+  notify: restart grafana
+  
+
+- name: Copy jsons
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/var/lib/grafana/dashboards/{{ item }}"
+  loop:
+    - main.json
+    - syslog.json
+    - mysql.json
+  
+- name: grafna started & enabled
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes
