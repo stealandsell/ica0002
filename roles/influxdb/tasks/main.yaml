@@ -74,6 +74,4 @@
   template:
     src: influxdb-backup
     dest: /etc/cron.d/influxdb-backup
-    owner: backup
-    group: backup
-    mode: 0400
+

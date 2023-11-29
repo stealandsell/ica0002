@@ -1,0 +1,27 @@
+- name: Install haproxy and haproxy exporter
+  apt: 
+    name: 
+      - haproxy
+      - prometheus-haproxy-exporter
+
+
+- name: Copy HAproxy conf file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: "haproxy.conf.j2", dest: "/etc/haproxy/haproxy.cfg" }
+    - { src: "haproxy.scrape-uri.j2", dest: "/etc/default/prometheus-haproxy-exporter" }
+  notify:
+    - restart haproxy
+    - restart haproxy exporter
+
+
+- name: Start HAproxy on boot
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - haproxy
+    - prometheus-haproxy-exporter

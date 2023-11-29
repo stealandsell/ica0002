@@ -30,7 +30,7 @@
       - mx
       
   - name: nginx
-    hosts: web_servers
+    hosts: agama
     roles:
       - agama
 #      - uwsgi
@@ -64,4 +64,16 @@
       - influxdb
       - pinger
     tags: 8l
+    
+    
+  - name: Keepalived & Keepalived_exporter
+    hosts: haproxy
+    gather_facts: true
+    become: yes
+    roles:
+      - keepalived
+      - haproxy
+    tags: hap
+
+
     
