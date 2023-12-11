@@ -6,7 +6,7 @@
     tags: always
       
   - name: DNS servers
-    hosts: dns_server  
+    hosts: dns_servers  
     roles:
       - bind
     tags: bind
@@ -15,6 +15,8 @@
     hosts: all
     roles:
       - dns_resolved
+    tags: resolver
+    
       
   - name: Docker
     hosts: docker

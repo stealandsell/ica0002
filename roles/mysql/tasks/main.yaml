@@ -25,6 +25,9 @@
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - source reset
+    - reset replica
 
 #- name: Database user
 #  mysql_user:

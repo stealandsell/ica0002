@@ -19,6 +19,10 @@ vrrp_instance my_ha_frontend {
     priority 99
     {% endif%}
     advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass {{keepalived_pass}}
+    }
     virtual_ipaddress {
        {% if vm1_ip.startswith('192.168.42.') %}
 		192.168.100.{{ vm1_ip.split('.')[-1] }}/24

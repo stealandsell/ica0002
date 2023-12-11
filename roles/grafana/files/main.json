@@ -114,8 +114,10 @@
           },
           "editorMode": "code",
           "expr": "rate(bind_resolver_queries_total[1m])",
+          "format": "time_series",
           "instant": false,
-          "legendFormat": "__auto",
+          "interval": "",
+          "legendFormat": "",
           "range": true,
           "refId": "A"
         }
@@ -427,7 +429,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "mysql_up{instance=\"stealandsell-2:9104\"}",
+          "expr": "mysql_up{job=\"mysql_exporter\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -577,7 +579,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "bind_up{instance=\"stealandsell-2:9119\"}",
+          "expr": "bind_up{job=\"bind_exporter\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -756,20 +758,7 @@
             "type": "influxdb",
             "uid": "PDDB37A76957DD37E"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
+          "groupBy": [],
           "measurement": "latency",
           "orderByTime": "ASC",
           "policy": "default",
@@ -784,14 +773,95 @@
                 "type": "field"
               },
               {
-                "params": [],
-                "type": "integral"
+                "params": [
+                  10
+                ],
+                "type": "moving_average"
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "dst::tag",
+              "operator": "=",
+              "value": "cloudflare.com"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "PDDB37A76957DD37E"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "latency",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  10
+                ],
+                "type": "moving_average"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "dst::tag",
+              "operator": "=",
+              "value": "google.com"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "PDDB37A76957DD37E"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "latency",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  10
+                ],
+                "type": "moving_average"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "dst::tag",
+              "operator": "=",
+              "value": "twitter.com"
+            }
+          ]
         }
       ],
+      "timeFrom": "2h",
       "title": "latency",
       "type": "timeseries"
     },
@@ -1242,7 +1312,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "10s",
+  "refresh": "5s",
   "schemaVersion": 38,
   "tags": [],
   "templating": {

@@ -1,5 +1,5 @@
 $TTL	604800
-gamblinggreats.io.	IN	SOA	gamblinggreats.io. ubuntu.gamblinggreats.io. (
+{{startup_name}}.	IN	SOA	{{startup_name}}. ubuntu.{{startup_name}}. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -7,13 +7,11 @@ gamblinggreats.io.	IN	SOA	gamblinggreats.io. ubuntu.gamblinggreats.io. (
 			 604800 )	; Negative Cache TTL
 ;
 
-{% for vm in groups['dns_server'] %}
-gamblinggreats.io.	IN	NS	{{ vm }}.gamblinggreats.io.
+{% for vm in groups['dns_servers'] %}
+{{startup_name}}.	IN	NS	{{ vm }}.{{startup_name}}.
 {% endfor %}
 
 {% for vm in hostvars %}
 {{ hostvars[vm]['inventory_hostname'] }}	IN	A	{{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
 
-
-backup                                        IN	A       {{ backup_ip}}

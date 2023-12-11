@@ -24,13 +24,22 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-listen my_ha_frontend
-    bind *:{{haproxy_port}}
-	stats enable
+frontend stats
+    mode http
+    bind *:9188
+    stats enable
     stats uri /haproxy?stats
+    stats refresh 5s
+
+
+listen my_ha_frontend
+    bind *:88
 	{% set port = 8000 %}
 	{%- for item in range(1,agama_per_vm+1) -%}
 	{% for vm in groups['agama'] -%}
 	server {{vm}}_{{item}}  {{vm}}:{{port+item}} check
 	{% endfor %}
 	{%- endfor -%}
+	
+
+
