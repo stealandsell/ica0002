@@ -9,7 +9,7 @@ Restore MySQL data from the backup:
 
     sudo -u backup duplicity --no-encryption restore rsync://stealandsell@backup.gamblinggreats.io/mysql /home/backup/restore/mysql
     sudo su - root
-    mysql agama < /home/restore/mysql/agama.sql
+    mysql agama < /home/backup/restore/mysql/agama.sql
 
 how the result of backup restore can be checked?
 

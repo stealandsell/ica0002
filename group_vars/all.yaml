@@ -153,5 +153,12 @@ dns_cname_records:
   prometheus: "{{ groups['prometheus'][0] }}"
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
+  test: "{{ groups['db_servers'][1] }}"
+  new: "{{ groups['db_servers'][0] }}"
+  1: "{{ groups['db_servers'][0] }}"
+  2: "{{ groups['db_servers'][0] }}"
+  3: "{{ groups['db_servers'][0] }}"
+  4: "{{ groups['db_servers'][0] }}"
+#  test_new: "{{ groups['web_servers'][1] }}"
   
 
