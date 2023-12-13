@@ -13,6 +13,7 @@
   loop:
     - { src: "named.conf.options", dest: "/etc/bind/named.conf.options" }
     - { src: "named.conf.local.j2", dest: "/etc/bind/named.conf.local" }
+#  no_log: true
   notify: 
     - restart bind9
     - reload rndc
@@ -28,7 +29,7 @@
     - { src: "db.reverse.j2", dest: "/var/cache/bind/db.reverse" }
   when: inventory_hostname in groups['dns_primary']
   notify: reload rndc 
-  tags: zone
+  no_log: true
 
 - name: Execute handlers preemptively
   meta: flush_handlers

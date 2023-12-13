@@ -29,6 +29,7 @@
   loop:
     - { src: "keepalived.conf.j2", dest: "/etc/keepalived/keepalived.conf" }
     - { src: "keepalived_exporter", dest: "/etc/systemd/system/keepalived_exporter.service" }
+  no_log: true
   notify: 
     - restart daemon
     - restart keepalived

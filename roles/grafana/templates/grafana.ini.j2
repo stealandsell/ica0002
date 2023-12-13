@@ -1,5 +1,8 @@
+[dashboards]
+default_home_dashboard_path = /etc/grafana/provisioning/dashboards/main.json
+
 [server]
-root_url = http://{{ssh_ip}}:{{vm1_port}}/grafana
+root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana/
 serve_from_sub_path = true
 
 [security]

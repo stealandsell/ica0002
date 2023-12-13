@@ -6,7 +6,7 @@
     tags: always
       
   - name: DNS servers
-    hosts: dns_servers  
+    hosts: dns_servers
     roles:
       - bind
     tags: bind
@@ -31,7 +31,7 @@
       - db
       - mx
       
-  - name: nginx
+  - name: agama
     hosts: agama
     roles:
       - agama
@@ -42,7 +42,7 @@
 
    
   - name: nginx conf
-    hosts: all
+    hosts: dns_primary
     roles:
       - nginx
     tags: nginx

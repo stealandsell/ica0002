@@ -24,12 +24,12 @@
 - name: run agama instances
   community.docker.docker_container:
     container_default_behavior: no_defaults
-    name:  "{{ 'agama%01x' | format(item) }}"
+    name:  agama_{{ item }}
     image: agama
-    published_ports: "{{ agama_start_port + item - 1}}:{{agama_start_port}}"
+    published_ports: "{{ agama_start_port + item}}:{{agama_start_port-1}}"
     env:
        AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
     restart_policy: always
-  loop: '{{range(1,agama_per_vm+1)|list }}'
+  loop: "{{ range(agama_per_vm) }}"
 #  no_log: true
   

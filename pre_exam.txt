@@ -1,0 +1,5704 @@
+K 13 dets  2023 11:00:26 EET
++ hostname
+0000
++ ansible-playbook infra.yaml --diff
+
+PLAY [Initial setup] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : Update APT cache] *************************************************
+ok: [stealandsell-3]
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+TASK [init : install packages] *************************************************
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [stealandsell-2]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [stealandsell-3]
+
+TASK [init : start & enable node exporter] *************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : Ensure ca-certificates is up-to-date] *****************************
+The following packages will be upgraded:
+  ca-certificates
+Preconfiguring packages ...
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [stealandsell-3]
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [stealandsell-2]
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [stealandsell-1]
+
+TASK [init : install rsyslog] **************************************************
+Suggested packages:
+  rsyslog-mysql | rsyslog-pgsql rsyslog-mongodb rsyslog-doc rsyslog-openssl
+  | rsyslog-gnutls rsyslog-gssapi rsyslog-relp
+The following packages will be upgraded:
+  rsyslog
+1 upgraded, 0 newly installed, 0 to remove and 263 not upgraded.
+changed: [stealandsell-3]
+Suggested packages:
+  rsyslog-mysql | rsyslog-pgsql rsyslog-mongodb rsyslog-doc rsyslog-openssl
+  | rsyslog-gnutls rsyslog-gssapi rsyslog-relp
+The following packages will be upgraded:
+  rsyslog
+1 upgraded, 0 newly installed, 0 to remove and 263 not upgraded.
+changed: [stealandsell-1]
+Suggested packages:
+  rsyslog-mysql | rsyslog-pgsql rsyslog-mongodb rsyslog-doc rsyslog-openssl
+  | rsyslog-gnutls rsyslog-gssapi rsyslog-relp
+The following packages will be upgraded:
+  rsyslog
+1 upgraded, 0 newly installed, 0 to remove and 263 not upgraded.
+changed: [stealandsell-2]
+
+TASK [init : copy conf] ********************************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmprqjy1ua8/50-telegraf.conf
+@@ -0,0 +1,9 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++
++# uncomment to use udp according to RFC 5424
++*.* @127.0.0.1:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [stealandsell-2]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp0n9ffq2z/50-telegraf.conf
+@@ -0,0 +1,9 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++
++# uncomment to use udp according to RFC 5424
++*.* @127.0.0.1:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [stealandsell-1]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpfk5mffu8/50-telegraf.conf
+@@ -0,0 +1,9 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++
++# uncomment to use udp according to RFC 5424
++*.* @127.0.0.1:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [stealandsell-3]
+
+TASK [init : Start & enable] ***************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : install duplicity] ************************************************
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 263 not upgraded.
+changed: [stealandsell-3]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 263 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 263 not upgraded.
+changed: [stealandsell-2]
+
+TASK [init : create backup user] ***********************************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+changed: [stealandsell-3]
+
+TASK [init : create restore directory] *****************************************
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0700",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-1]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0700",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-3]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0700",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-2]
+
+TASK [init : Create template known_hosts] **************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpgpr1l5kr/known_hosts
+@@ -0,0 +1,3 @@
++192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.gamblinggreats.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
+changed: [stealandsell-1]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpaht4tpg6/known_hosts
+@@ -0,0 +1,3 @@
++192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.gamblinggreats.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
+changed: [stealandsell-3]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpdhwawqw3/known_hosts
+@@ -0,0 +1,3 @@
++192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.gamblinggreats.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
+changed: [stealandsell-2]
+
+TASK [init : copy conf] ********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : Start & enable] ***************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+RUNNING HANDLER [init : restart rsyslog] ***************************************
+changed: [stealandsell-2]
+changed: [stealandsell-3]
+changed: [stealandsell-1]
+
+PLAY [DNS servers] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [bind : Install bind] *****************************************************
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-dnspython python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 5 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-3]
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-dnspython python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 5 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-dnspython python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 5 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+
+TASK [bind : copy confs] *******************************************************
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3]
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
+
+TASK [bind : copy master zone file] ********************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+RUNNING HANDLER [bind : restart bind9] *****************************************
+changed: [stealandsell-3]
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+RUNNING HANDLER [bind : reload rndc] *******************************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+changed: [stealandsell-3]
+
+TASK [bind : Install Bind9 exporter] *******************************************
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-3]
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+
+TASK [bind : Enable Bind9 exporter] ********************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [bind : Set A records] ****************************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3]
+
+TASK [bind : Set CNAME] ********************************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3]
+
+PLAY [DNS Resolved] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [dns_resolved : Stop systemd-resolved] ************************************
+changed: [stealandsell-1]
+changed: [stealandsell-3]
+changed: [stealandsell-2]
+
+TASK [dns_resolved : Change DNS configuration] *********************************
+--- before: /etc/resolv.conf
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp_qps69nd/resolv.conf.j2
+@@ -1,19 +1,7 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.118
++nameserver 192.168.42.68
++nameserver 192.168.42.148
+ 
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++
++search gamblinggreats.io
++
+
+changed: [stealandsell-1]
+--- before: /etc/resolv.conf
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp45ts_mo4/resolv.conf.j2
+@@ -1,19 +1,7 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.118
++nameserver 192.168.42.68
++nameserver 192.168.42.148
+ 
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++
++search gamblinggreats.io
++
+
+changed: [stealandsell-2]
+--- before: /etc/resolv.conf
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpqxruz0s7/resolv.conf.j2
+@@ -1,19 +1,7 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.118
++nameserver 192.168.42.68
++nameserver 192.168.42.148
+ 
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++
++search gamblinggreats.io
++
+
+changed: [stealandsell-3]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [docker : Docker package] *************************************************
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-3]
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+
+TASK [docker : Docker service] *************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+PLAY [Database server] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : Install mysql server] ********************************************
+The following additional packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common
+  mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
+  mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 24 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+The following additional packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common
+  mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
+  mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 24 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+
+TASK [mysql : start mysql server] **********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : override] ********************************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpvwd5coob/override.cnf
+@@ -0,0 +1,7 @@
++[mysqld]
++bind-address = 0.0.0.0
++
++log-bin = /var/log/mysql/mysql-bin.log
++relay-log = /var/log/mysql/mysql-relay.log
++replicate-do-db = agama
++server-id = 148
+
+changed: [stealandsell-2]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp9ojgol5e/override.cnf
+@@ -0,0 +1,7 @@
++[mysqld]
++bind-address = 0.0.0.0
++
++log-bin = /var/log/mysql/mysql-bin.log
++relay-log = /var/log/mysql/mysql-relay.log
++replicate-do-db = agama
++server-id = 68
+
+changed: [stealandsell-1]
+
+TASK [mysql : Install Pymsql] **************************************************
+Suggested packages:
+  python-pymysql-doc
+The following NEW packages will be installed:
+  python3-pymysql
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+Suggested packages:
+  python-pymysql-doc
+The following NEW packages will be installed:
+  python3-pymysql
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+
+TASK [mysql : MySQL database] **************************************************
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+TASK [mysql : Create MySQL users] **********************************************
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
+
+TASK [mysql : replica  read-only ON] *******************************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+
+TASK [mysql : Install dependecies] *********************************************
+The following additional packages will be installed:
+  daemon
+The following NEW packages will be installed:
+  daemon prometheus-mysqld-exporter
+0 upgraded, 2 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  daemon
+The following NEW packages will be installed:
+  daemon prometheus-mysqld-exporter
+0 upgraded, 2 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+
+TASK [mysql : Create directory] ************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : copy confs] ******************************************************
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
+
+TASK [mysql : Force all notified handlers to run at this point, not waiting for normal sync points] ***
+
+RUNNING HANDLER [mysql : restart mysql] ****************************************
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+RUNNING HANDLER [mysql : restart mysql exporter] *******************************
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+RUNNING HANDLER [mysql : source reset] *****************************************
+skipping: [stealandsell-1] => (item=stopreplica) 
+skipping: [stealandsell-1] => (item=resetprimary) 
+ok: [stealandsell-2] => (item=stopreplica)
+changed: [stealandsell-2] => (item=resetprimary)
+
+RUNNING HANDLER [mysql : reset replica] ****************************************
+skipping: [stealandsell-2] => (item=stopreplica) 
+skipping: [stealandsell-2] => (item=changeprimary) 
+skipping: [stealandsell-2] => (item=resetreplica) 
+skipping: [stealandsell-2] => (item=startreplica) 
+ok: [stealandsell-1] => (item=stopreplica)
+changed: [stealandsell-1] => (item=changeprimary)
+changed: [stealandsell-1] => (item=resetreplica)
+changed: [stealandsell-1] => (item=startreplica)
+
+TASK [mysql : Enabled] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : create backup/mysql directory] ***********************************
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0700",
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-1]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0700",
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-2]
+
+TASK [mysql : Move backup.my.cnf file] *****************************************
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+TASK [mysql : Create user backup] **********************************************
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+TASK [mysql : create backup file] **********************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpz8hmzdt_/mysql-backup
+@@ -0,0 +1 @@
++
+
+changed: [stealandsell-1]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp2b7l41x_/mysql-backup
+@@ -0,0 +1,5 @@
++MAILTO=""
++
++0 1 * * 1-6  backup  mysqldump agama > /home/backup/mysql/agama.sql
++0 0 * * 5  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://stealandsell@backup.gamblinggreats.io/mysql
++0 1 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://stealandsell@backup.gamblinggreats.io/mysql
+
+changed: [stealandsell-2]
+
+PLAY [agama] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [agama : Create agama dierectory] *****************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/agama",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-1]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/agama",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-2]
+
+TASK [agama : download dockerfile and agama itself] ****************************
+changed: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+changed: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+changed: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+changed: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+
+TASK [agama : build agama] *****************************************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+
+TASK [agama : run agama instances] *********************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [stealandsell-2] => (item=0)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [stealandsell-2] => (item=1)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [stealandsell-1] => (item=0)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [stealandsell-1] => (item=1)
+
+PLAY [nginx conf] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [nginx : install nginx] ***************************************************
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-3]
+
+TASK [nginx : Copy Nginx default config to sites-enabled] **********************
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpb4q6u1c4/default.j2
+@@ -1,91 +1,41 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
+-
+-# Default server configuration
+-#
+ server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
++	listen 8080 default_server;
++	
++	server_name _;
++	
++	client_header_buffer_size 512k;
++	large_client_header_buffers 4 512k;
+ 
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+-	server_name _;
+-
+-	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
+-	}
+-
+-	# pass PHP scripts to FastCGI server
+-	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
+-
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
+-}
++        
++        location /stub_status {
++                stub_status;
++        }
+ 
+ 
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
++		location /prometheus {
++		proxy_pass http://localhost:9090;
++	}
++	
++	       
++
++        location /nginx-metrics {
++                proxy_pass http://127.0.0.1:9113/metrics;
++        }
++        
++        
++                
++	
++
++                location /grafana {
++                 proxy_set_header Host $http_host;
++                 proxy_pass http://127.0.0.1:3001;
++    	}
++                
++        
++                location /influxdb-metrics {
++
++                 proxy_pass http://127.0.0.1:9424/metrics;
++    	}
++                
++        }
+
+changed: [stealandsell-3]
+
+TASK [nginx : start n enable nginx] ********************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Install nginx exporter] ******************************************
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-3]
+
+TASK [nginx : Enable exporter] *************************************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [nginx : restart nginx] ****************************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [nginx : Reload systemd] ***************************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [nginx : Restart Nginx exporter] *******************************
+changed: [stealandsell-3]
+
+PLAY [Configure Prometheus] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [prometheus : install prometheus] *****************************************
+The following additional packages will be installed:
+  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
+  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
+  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
+  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
+  nodejs-doc
+Suggested packages:
+  npm
+The following NEW packages will be installed:
+  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
+  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
+  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
+  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
+  nodejs-doc prometheus
+0 upgraded, 19 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-3]
+
+TASK [prometheus : copy confs] *************************************************
+--- before: /etc/prometheus/prometheus.yml
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp00ly4pqv/prometheus.yml.j2
+@@ -1,44 +1,54 @@
+-# Sample config for Prometheus.
++global:
++  scrape_interval:     15s
++  evaluation_interval: 15s
+ 
+-global:
+-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+-  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+-  # scrape_timeout is set to the global default (10s).
++scrape_configs:
++  - job_name: prometheus
++    metrics_path: '/prometheus/metrics'
++    static_configs:
++      - targets: 
++           - 127.0.0.1:9090
+ 
+-  # Attach these labels to any time series or alerts when communicating with
+-  # external systems (federation, remote storage, Alertmanager).
+-  external_labels:
+-      monitor: 'example'
+-
+-# Alertmanager configuration
+-alerting:
+-  alertmanagers:
+-  - static_configs:
+-    - targets: ['localhost:9093']
+-
+-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+-rule_files:
+-  # - "first_rules.yml"
+-  # - "second_rules.yml"
+-
+-# A scrape configuration containing exactly one endpoint to scrape:
+-# Here it's Prometheus itself.
+-scrape_configs:
+-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+-  - job_name: 'prometheus'
+-
+-    # Override the global default and scrape targets from this job every 5 seconds.
+-    scrape_interval: 5s
+-    scrape_timeout: 5s
+-
+-    # metrics_path defaults to '/metrics'
+-    # scheme defaults to 'http'.
+-
++  - job_name: linux
+     static_configs:
+-      - targets: ['localhost:9090']
+-
+-  - job_name: node
+-    # If prometheus-node-exporter is installed, grab stats about the local
+-    # machine by default.
++      - targets:
++                     - stealandsell-1:9100
++                     - stealandsell-2:9100
++                     - stealandsell-3:9100
++                    
++  - job_name: nginx_exporters
+     static_configs:
+-      - targets: ['localhost:9100']
++      - targets:
++                     - stealandsell-1:9113
++                     - stealandsell-2:9113
++          
++  - job_name: mysql_exporter
++    static_configs:
++      - targets:
++                     - stealandsell-1:9104
++                     - stealandsell-2:9104
++          
++  - job_name: bind_exporter
++    static_configs:
++      - targets:
++                     - stealandsell-3:9119
++                     - stealandsell-1:9119
++                     - stealandsell-2:9119
++          
++  - job_name: influxdb
++    static_configs:
++      - targets:
++                     - stealandsell-3:9424
++                    
++  - job_name: haproxy
++    static_configs:
++      - targets:
++                     - stealandsell-1:9101
++                     - stealandsell-2:9101
++                    
++  - job_name: keepalived
++    static_configs:
++      - targets:
++                     - stealandsell-1:9165
++                     - stealandsell-2:9165
++          
+
+changed: [stealandsell-3] => (item={'src': 'prometheus.yml.j2', 'dest': '/etc/prometheus/prometheus.yml'})
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpf6ou0v5a/prometheus.j2
+@@ -0,0 +1,14 @@
++[Unit]
++Description=Prometheus
++Wants=network-online.target
++After=network-online.target
++
++[Service]
++User=prometheus
++Group=prometheus
++Type=simple
++ExecStart=/usr/bin/prometheus $ARGS --web.external-url=http://193.40.156.67:11880/prometheus
++
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [stealandsell-3] => (item={'src': 'prometheus.j2', 'dest': '/etc/systemd/system/prometheus.service'})
+
+TASK [prometheus : execute handlers] *******************************************
+
+RUNNING HANDLER [prometheus : reload daemon] ***********************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [prometheus : restart prometheus] ******************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [prometheus : restart nginx] ***********************************
+changed: [stealandsell-3]
+
+TASK [prometheus : start prometheus] *******************************************
+ok: [stealandsell-3]
+
+PLAY [Configure Grafana] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [grafana : create dirs] ***************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/grafana/provisioning/dashboards",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-3] => (item=/opt/grafana/provisioning/dashboards)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/grafana/provisioning/datasources",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : copy confs] ****************************************************
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3] => (item=None)
+changed: [stealandsell-3]
+
+TASK [grafana : Copy jsons] ****************************************************
+--- before
++++ after: /home/q0000/ica0002/roles/grafana/files/main.json
+@@ -0,0 +1,1330 @@
++{
++  "annotations": {
++    "list": [
++      {
++        "builtIn": 1,
++        "datasource": {
++          "type": "grafana",
++          "uid": "-- Grafana --"
++        },
++        "enable": true,
++        "hide": true,
++        "iconColor": "rgba(0, 211, 255, 1)",
++        "name": "Annotations & Alerts",
++        "target": {
++          "limit": 100,
++          "matchAny": false,
++          "tags": [],
++          "type": "dashboard"
++        },
++        "type": "dashboard"
++      }
++    ]
++  },
++  "editable": true,
++  "fiscalYearStartMonth": 0,
++  "graphTooltip": 0,
++  "links": [],
++  "liveNow": false,
++  "panels": [
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "custom": {
++            "axisBorderShow": false,
++            "axisCenteredZero": false,
++            "axisColorMode": "text",
++            "axisLabel": "",
++            "axisPlacement": "auto",
++            "barAlignment": 0,
++            "drawStyle": "line",
++            "fillOpacity": 0,
++            "gradientMode": "none",
++            "hideFrom": {
++              "legend": false,
++              "tooltip": false,
++              "viz": false
++            },
++            "insertNulls": false,
++            "lineInterpolation": "linear",
++            "lineWidth": 1,
++            "pointSize": 5,
++            "scaleDistribution": {
++              "type": "linear"
++            },
++            "showPoints": "auto",
++            "spanNulls": false,
++            "stacking": {
++              "group": "A",
++              "mode": "none"
++            },
++            "thresholdsStyle": {
++              "mode": "off"
++            }
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 6,
++        "x": 0,
++        "y": 0
++      },
++      "id": 30,
++      "options": {
++        "legend": {
++          "calcs": [],
++          "displayMode": "list",
++          "placement": "bottom",
++          "showLegend": true
++        },
++        "tooltip": {
++          "mode": "single",
++          "sort": "none"
++        }
++      },
++      "pluginVersion": "10.2.0",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "editorMode": "code",
++          "expr": "rate(bind_resolver_queries_total[1m])",
++          "format": "time_series",
++          "instant": false,
++          "interval": "",
++          "legendFormat": "",
++          "range": true,
++          "refId": "A"
++        }
++      ],
++      "title": "dns selects/minute",
++      "type": "timeseries"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "custom": {
++            "axisBorderShow": false,
++            "axisCenteredZero": false,
++            "axisColorMode": "text",
++            "axisLabel": "",
++            "axisPlacement": "auto",
++            "barAlignment": 0,
++            "drawStyle": "line",
++            "fillOpacity": 0,
++            "gradientMode": "none",
++            "hideFrom": {
++              "legend": false,
++              "tooltip": false,
++              "viz": false
++            },
++            "insertNulls": false,
++            "lineInterpolation": "linear",
++            "lineWidth": 1,
++            "pointSize": 5,
++            "scaleDistribution": {
++              "type": "linear"
++            },
++            "showPoints": "auto",
++            "spanNulls": false,
++            "stacking": {
++              "group": "A",
++              "mode": "none"
++            },
++            "thresholdsStyle": {
++              "mode": "off"
++            }
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 6,
++        "x": 6,
++        "y": 0
++      },
++      "id": 29,
++      "options": {
++        "legend": {
++          "calcs": [],
++          "displayMode": "list",
++          "placement": "bottom",
++          "showLegend": true
++        },
++        "tooltip": {
++          "mode": "single",
++          "sort": "none"
++        }
++      },
++      "pluginVersion": "10.2.0",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "code",
++          "expr": "rate(mysql_global_status_commands_total{command=\"select\"}[1m])",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "mysql selects/minute",
++      "type": "timeseries"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          },
++          "unit": "decbytes"
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 5,
++        "x": 12,
++        "y": 0
++      },
++      "id": 4,
++      "options": {
++        "minVizHeight": 75,
++        "minVizWidth": 75,
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "showThresholdLabels": false,
++        "showThresholdMarkers": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "editorMode": "code",
++          "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes{instance!=\"localhost:9100\"}",
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A"
++        }
++      ],
++      "title": "Memory consumption",
++      "type": "gauge"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 5,
++        "x": 17,
++        "y": 0
++      },
++      "id": 2,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "editorMode": "code",
++          "expr": "rate(node_cpu_seconds_total{mode=\"user\"}[1m])",
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A"
++        }
++      ],
++      "title": "CPU load",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 6,
++        "x": 0,
++        "y": 4
++      },
++      "id": 28,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_up{job=\"mysql_exporter\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "mysql status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 6,
++        "x": 6,
++        "y": 4
++      },
++      "id": 16,
++      "options": {
++        "minVizHeight": 75,
++        "minVizWidth": 75,
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "showThresholdLabels": false,
++        "showThresholdMarkers": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "editorMode": "code",
++          "expr": "rate(nginx_http_requests_total[1m])",
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A"
++        }
++      ],
++      "title": " http Requests/minute ",
++      "type": "gauge"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 5,
++        "x": 12,
++        "y": 4
++      },
++      "id": 27,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "bind_up{job=\"bind_exporter\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "Bind9 status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "color": "dark-red",
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "color": "green",
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 5,
++        "x": 17,
++        "y": 4
++      },
++      "id": 14,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "editorMode": "code",
++          "expr": "nginx_up",
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A"
++        }
++      ],
++      "title": "Nginx status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "influxdb",
++        "uid": "PDDB37A76957DD37E"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "custom": {
++            "axisBorderShow": false,
++            "axisCenteredZero": false,
++            "axisColorMode": "text",
++            "axisLabel": "",
++            "axisPlacement": "auto",
++            "barAlignment": 0,
++            "drawStyle": "line",
++            "fillOpacity": 0,
++            "gradientMode": "none",
++            "hideFrom": {
++              "legend": false,
++              "tooltip": false,
++              "viz": false
++            },
++            "insertNulls": false,
++            "lineInterpolation": "linear",
++            "lineWidth": 1,
++            "pointSize": 5,
++            "scaleDistribution": {
++              "type": "linear"
++            },
++            "showPoints": "auto",
++            "spanNulls": false,
++            "stacking": {
++              "group": "A",
++              "mode": "none"
++            },
++            "thresholdsStyle": {
++              "mode": "off"
++            }
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 7,
++        "w": 6,
++        "x": 0,
++        "y": 8
++      },
++      "id": 33,
++      "options": {
++        "legend": {
++          "calcs": [],
++          "displayMode": "list",
++          "placement": "bottom",
++          "showLegend": true
++        },
++        "tooltip": {
++          "mode": "single",
++          "sort": "none"
++        }
++      },
++      "targets": [
++        {
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PDDB37A76957DD37E"
++          },
++          "groupBy": [],
++          "measurement": "latency",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "A",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "rtt"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [
++                  10
++                ],
++                "type": "moving_average"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "dst::tag",
++              "operator": "=",
++              "value": "cloudflare.com"
++            }
++          ]
++        },
++        {
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PDDB37A76957DD37E"
++          },
++          "groupBy": [],
++          "hide": false,
++          "measurement": "latency",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "B",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "rtt"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [
++                  10
++                ],
++                "type": "moving_average"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "dst::tag",
++              "operator": "=",
++              "value": "google.com"
++            }
++          ]
++        },
++        {
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PDDB37A76957DD37E"
++          },
++          "groupBy": [],
++          "hide": false,
++          "measurement": "latency",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "C",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "rtt"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [
++                  10
++                ],
++                "type": "moving_average"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "dst::tag",
++              "operator": "=",
++              "value": "twitter.com"
++            }
++          ]
++        }
++      ],
++      "title": "latency",
++      "type": "timeseries"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "custom": {
++            "axisBorderShow": false,
++            "axisCenteredZero": false,
++            "axisColorMode": "text",
++            "axisLabel": "",
++            "axisPlacement": "auto",
++            "barAlignment": 0,
++            "drawStyle": "line",
++            "fillOpacity": 0,
++            "gradientMode": "none",
++            "hideFrom": {
++              "legend": false,
++              "tooltip": false,
++              "viz": false
++            },
++            "insertNulls": false,
++            "lineInterpolation": "linear",
++            "lineWidth": 1,
++            "pointSize": 5,
++            "scaleDistribution": {
++              "type": "linear"
++            },
++            "showPoints": "auto",
++            "spanNulls": false,
++            "stacking": {
++              "group": "A",
++              "mode": "none"
++            },
++            "thresholdsStyle": {
++              "mode": "off"
++            }
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 7,
++        "w": 6,
++        "x": 6,
++        "y": 8
++      },
++      "id": 32,
++      "options": {
++        "legend": {
++          "calcs": [],
++          "displayMode": "list",
++          "placement": "bottom",
++          "showLegend": true
++        },
++        "tooltip": {
++          "mode": "single",
++          "sort": "none"
++        }
++      },
++      "pluginVersion": "10.2.0",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "influxdb_write_write_ok{instance=\"stealandsell-3:9424\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "InfluxDB write rate",
++      "type": "timeseries"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "color": "dark-red",
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "color": "green",
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 3,
++        "x": 12,
++        "y": 8
++      },
++      "id": 34,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "haproxy_up{job=\"haproxy\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "Haproxy status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "color": "dark-red",
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "color": "green",
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 7,
++        "x": 15,
++        "y": 8
++      },
++      "id": 35,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "haproxy_server_up{job=\"haproxy\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "Haproxy server status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 3,
++        "w": 3,
++        "x": 12,
++        "y": 12
++      },
++      "id": 31,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "influxdb_exporter_stats_query_success{instance=\"stealandsell-2:9424\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "InfluxDB health",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "1": {
++                  "color": "yellow",
++                  "index": 1,
++                  "text": "Backup"
++                },
++                "2": {
++                  "color": "green",
++                  "index": 0,
++                  "text": "Master"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 3,
++        "w": 5,
++        "x": 15,
++        "y": 12
++      },
++      "id": 36,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "keepalived_vrrp_state{job=\"keepalived\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "Keepalived state",
++      "type": "stat"
++    }
++  ],
++  "refresh": "5s",
++  "schemaVersion": 38,
++  "tags": [],
++  "templating": {
++    "list": []
++  },
++  "time": {
++    "from": "now-5m",
++    "to": "now"
++  },
++  "timepicker": {},
++  "timezone": "",
++  "title": "Main",
++  "uid": "JjQv_Bp4z",
++  "version": 1,
++  "weekStart": ""
++}
+\ No newline at end of file
+
+changed: [stealandsell-3] => (item=main.json)
+--- before
++++ after: /home/q0000/ica0002/roles/grafana/files/mysql.json
+@@ -0,0 +1,513 @@
++{
++  "annotations": {
++    "list": [
++      {
++        "builtIn": 1,
++        "datasource": {
++          "type": "grafana",
++          "uid": "-- Grafana --"
++        },
++        "enable": true,
++        "hide": true,
++        "iconColor": "rgba(0, 211, 255, 1)",
++        "name": "Annotations & Alerts",
++        "type": "dashboard"
++      }
++    ]
++  },
++  "editable": true,
++  "fiscalYearStartMonth": 0,
++  "graphTooltip": 0,
++  "id": 3,
++  "links": [],
++  "liveNow": false,
++  "panels": [
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [
++            {
++              "options": {
++                "0": {
++                  "color": "dark-red",
++                  "index": 1,
++                  "text": "DOWN"
++                },
++                "1": {
++                  "color": "green",
++                  "index": 0,
++                  "text": "UP"
++                }
++              },
++              "type": "value"
++            }
++          ],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 5,
++        "w": 7,
++        "x": 0,
++        "y": 0
++      },
++      "id": 5,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_up",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "MySQL status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 5,
++        "x": 7,
++        "y": 0
++      },
++      "id": 4,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_slave_status_slave_sql_running{job=\"mysql_exporter\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "MySQL replication threads (sql)",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 5,
++        "x": 12,
++        "y": 0
++      },
++      "id": 3,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_slave_status_slave_io_running{job=\"mysql_exporter\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "MySQL replication threads ",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 5,
++        "w": 10,
++        "x": 7,
++        "y": 4
++      },
++      "id": 2,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_global_variables_read_only",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "MySQL server read only status",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 4,
++        "w": 7,
++        "x": 0,
++        "y": 5
++      },
++      "id": 1,
++      "options": {
++        "colorMode": "value",
++        "graphMode": "area",
++        "justifyMode": "auto",
++        "orientation": "auto",
++        "reduceOptions": {
++          "calcs": [
++            "lastNotNull"
++          ],
++          "fields": "",
++          "values": false
++        },
++        "textMode": "auto",
++        "wideLayout": true
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_global_variables_server_id",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "MySQL server ids",
++      "type": "stat"
++    },
++    {
++      "datasource": {
++        "type": "prometheus",
++        "uid": "PBFA97CFB590B2093"
++      },
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "palette-classic"
++          },
++          "custom": {
++            "axisBorderShow": false,
++            "axisCenteredZero": false,
++            "axisColorMode": "text",
++            "axisLabel": "",
++            "axisPlacement": "auto",
++            "barAlignment": 0,
++            "drawStyle": "line",
++            "fillOpacity": 0,
++            "gradientMode": "none",
++            "hideFrom": {
++              "legend": false,
++              "tooltip": false,
++              "viz": false
++            },
++            "insertNulls": false,
++            "lineInterpolation": "linear",
++            "lineWidth": 1,
++            "pointSize": 5,
++            "scaleDistribution": {
++              "type": "linear"
++            },
++            "showPoints": "auto",
++            "spanNulls": false,
++            "stacking": {
++              "group": "A",
++              "mode": "none"
++            },
++            "thresholdsStyle": {
++              "mode": "off"
++            }
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "green",
++                "value": null
++              },
++              {
++                "color": "red",
++                "value": 80
++              }
++            ]
++          }
++        },
++        "overrides": []
++      },
++      "gridPos": {
++        "h": 6,
++        "w": 17,
++        "x": 0,
++        "y": 9
++      },
++      "id": 6,
++      "options": {
++        "legend": {
++          "calcs": [],
++          "displayMode": "list",
++          "placement": "bottom",
++          "showLegend": true
++        },
++        "tooltip": {
++          "mode": "single",
++          "sort": "none"
++        }
++      },
++      "pluginVersion": "10.2.2",
++      "targets": [
++        {
++          "datasource": {
++            "type": "prometheus",
++            "uid": "PBFA97CFB590B2093"
++          },
++          "disableTextWrap": false,
++          "editorMode": "builder",
++          "expr": "mysql_global_status_commands_total{command=\"select\"}",
++          "fullMetaSearch": false,
++          "includeNullMetadata": true,
++          "instant": false,
++          "legendFormat": "__auto",
++          "range": true,
++          "refId": "A",
++          "useBackend": false
++        }
++      ],
++      "title": "MySQL selects per minute",
++      "type": "timeseries"
++    }
++  ],
++  "refresh": "",
++  "schemaVersion": 38,
++  "tags": [],
++  "templating": {
++    "list": []
++  },
++  "time": {
++    "from": "now-5m",
++    "to": "now"
++  },
++  "timepicker": {},
++  "timezone": "",
++  "title": "MySQL",
++  "uid": "aa136316-c8d7-4bf3-a626-7102fa3143c1",
++  "version": 1,
++  "weekStart": ""
++}
+\ No newline at end of file
+
+changed: [stealandsell-3] => (item=mysql.json)
+--- before
++++ after: /home/q0000/ica0002/roles/grafana/files/syslog.json
+@@ -0,0 +1,1029 @@
++{
++  "annotations": {
++    "list": [
++      {
++        "builtIn": 1,
++        "datasource": {
++          "type": "datasource",
++          "uid": "grafana"
++        },
++        "enable": true,
++        "hide": true,
++        "iconColor": "rgba(0, 211, 255, 1)",
++        "name": "Annotations & Alerts",
++        "type": "dashboard"
++      }
++    ]
++  },
++  "description": "Telegraf / InfluxDB / Grafana as syslog receiver",
++  "editable": true,
++  "fiscalYearStartMonth": 0,
++  "gnetId": 12433,
++  "graphTooltip": 0,
++  "id": 5,
++  "links": [],
++  "liveNow": false,
++  "panels": [
++    {
++      "aliasColors": {},
++      "bars": true,
++      "dashLength": 10,
++      "dashes": false,
++      "datasource": {
++        "type": "influxdb",
++        "uid": "PF877F614BFD14DDB"
++      },
++      "decimals": 0,
++      "fill": 1,
++      "fillGradient": 0,
++      "gridPos": {
++        "h": 7,
++        "w": 24,
++        "x": 0,
++        "y": 0
++      },
++      "hiddenSeries": false,
++      "id": 10,
++      "interval": "",
++      "legend": {
++        "alignAsTable": true,
++        "avg": true,
++        "current": false,
++        "max": true,
++        "min": false,
++        "rightSide": true,
++        "show": true,
++        "total": true,
++        "values": true
++      },
++      "lines": false,
++      "linewidth": 1,
++      "links": [],
++      "nullPointMode": "connected",
++      "options": {
++        "alertThreshold": true
++      },
++      "percentage": false,
++      "pluginVersion": "10.2.0",
++      "pointradius": 2,
++      "points": false,
++      "renderer": "flot",
++      "seriesOverrides": [
++        {
++          "alias": "Info",
++          "color": "rgb(80, 80, 80)",
++          "stack": "A"
++        },
++        {
++          "alias": "Notice",
++          "color": "rgb(182, 182, 182)",
++          "stack": "A"
++        },
++        {
++          "alias": "Warning",
++          "color": "#E0B400",
++          "stack": "A"
++        },
++        {
++          "alias": "Error",
++          "color": "#FF780A",
++          "stack": "A"
++        },
++        {
++          "alias": "Critical",
++          "color": "#E02F44",
++          "stack": "A"
++        },
++        {
++          "alias": "Alert",
++          "color": "#8F3BB8",
++          "stack": "A"
++        },
++        {
++          "alias": "Emergency",
++          "color": "#8F3BB8",
++          "stack": "A"
++        }
++      ],
++      "spaceLength": 10,
++      "stack": false,
++      "steppedLine": false,
++      "targets": [
++        {
++          "alias": "Info",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "A",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "info"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        },
++        {
++          "alias": "Notice",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "B",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "notice"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        },
++        {
++          "alias": "Warning",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "D",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "warning"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        },
++        {
++          "alias": "Error",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "C",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "err"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        },
++        {
++          "alias": "Critical",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "E",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "crit"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        },
++        {
++          "alias": "Alert",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "F",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "alert"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        },
++        {
++          "alias": "Emergency",
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "1m"
++              ],
++              "type": "time"
++            },
++            {
++              "params": [
++                "null"
++              ],
++              "type": "fill"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "G",
++          "resultFormat": "time_series",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              },
++              {
++                "params": [],
++                "type": "count"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "severity",
++              "operator": "=",
++              "value": "emerg"
++            },
++            {
++              "condition": "AND",
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        }
++      ],
++      "thresholds": [],
++      "timeRegions": [],
++      "title": "syslog count",
++      "tooltip": {
++        "shared": true,
++        "sort": 0,
++        "value_type": "individual"
++      },
++      "type": "graph",
++      "xaxis": {
++        "mode": "time",
++        "show": true,
++        "values": []
++      },
++      "yaxes": [
++        {
++          "decimals": 0,
++          "format": "none",
++          "label": "Messages / min",
++          "logBase": 1,
++          "show": true
++        },
++        {
++          "format": "short",
++          "logBase": 1,
++          "show": false
++        }
++      ],
++      "yaxis": {
++        "align": false
++      }
++    },
++    {
++      "datasource": {
++        "type": "influxdb",
++        "uid": "PF877F614BFD14DDB"
++      },
++      "description": "",
++      "fieldConfig": {
++        "defaults": {
++          "color": {
++            "mode": "thresholds"
++          },
++          "custom": {
++            "align": "left",
++            "cellOptions": {
++              "type": "auto"
++            },
++            "filterable": false,
++            "inspect": false
++          },
++          "mappings": [],
++          "thresholds": {
++            "mode": "absolute",
++            "steps": [
++              {
++                "color": "dark-purple",
++                "value": null
++              },
++              {
++                "color": "dark-red",
++                "value": 2
++              },
++              {
++                "color": "dark-orange",
++                "value": 3
++              },
++              {
++                "color": "dark-yellow",
++                "value": 4
++              },
++              {
++                "color": "rgb(150, 150, 150)",
++                "value": 5
++              },
++              {
++                "color": "rgb(51, 51, 51)",
++                "value": 6
++              },
++              {
++                "color": "rgb(5, 5, 5)",
++                "value": 7
++              }
++            ]
++          }
++        },
++        "overrides": [
++          {
++            "matcher": {
++              "id": "byName",
++              "options": "severity_code"
++            },
++            "properties": [
++              {
++                "id": "mappings",
++                "value": [
++                  {
++                    "options": {
++                      "0": {
++                        "text": "Emergency"
++                      },
++                      "1": {
++                        "text": "Alert"
++                      },
++                      "2": {
++                        "text": "Critical"
++                      },
++                      "3": {
++                        "text": "Error"
++                      },
++                      "4": {
++                        "text": "Warning"
++                      },
++                      "5": {
++                        "text": "Notice"
++                      },
++                      "6": {
++                        "text": "Info"
++                      },
++                      "7": {
++                        "text": "Debug"
++                      }
++                    },
++                    "type": "value"
++                  }
++                ]
++              },
++              {
++                "id": "custom.cellOptions",
++                "value": {
++                  "mode": "gradient",
++                  "type": "color-background"
++                }
++              },
++              {
++                "id": "custom.width",
++                "value": 119
++              }
++            ]
++          },
++          {
++            "matcher": {
++              "id": "byName",
++              "options": "Time"
++            },
++            "properties": [
++              {
++                "id": "custom.width",
++                "value": 163
++              }
++            ]
++          },
++          {
++            "matcher": {
++              "id": "byName",
++              "options": "hostname"
++            },
++            "properties": [
++              {
++                "id": "custom.width",
++                "value": 194
++              }
++            ]
++          },
++          {
++            "matcher": {
++              "id": "byName",
++              "options": "appname"
++            },
++            "properties": [
++              {
++                "id": "custom.width",
++                "value": 264
++              }
++            ]
++          }
++        ]
++      },
++      "gridPos": {
++        "h": 24,
++        "w": 24,
++        "x": 0,
++        "y": 7
++      },
++      "id": 12,
++      "options": {
++        "cellHeight": "sm",
++        "footer": {
++          "countRows": false,
++          "fields": "",
++          "reducer": [
++            "sum"
++          ],
++          "show": false
++        },
++        "showHeader": true,
++        "sortBy": [
++          {
++            "desc": true,
++            "displayName": "Time"
++          }
++        ]
++      },
++      "pluginVersion": "10.2.0",
++      "targets": [
++        {
++          "datasource": {
++            "type": "influxdb",
++            "uid": "PF877F614BFD14DDB"
++          },
++          "groupBy": [
++            {
++              "params": [
++                "hostname"
++              ],
++              "type": "tag"
++            },
++            {
++              "params": [
++                "appname"
++              ],
++              "type": "tag"
++            }
++          ],
++          "measurement": "syslog",
++          "orderByTime": "ASC",
++          "policy": "default",
++          "refId": "A",
++          "resultFormat": "table",
++          "select": [
++            [
++              {
++                "params": [
++                  "severity_code"
++                ],
++                "type": "field"
++              }
++            ],
++            [
++              {
++                "params": [
++                  "message"
++                ],
++                "type": "field"
++              }
++            ]
++          ],
++          "tags": [
++            {
++              "key": "hostname",
++              "operator": "=~",
++              "value": "/^$hostname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "appname",
++              "operator": "=~",
++              "value": "/^$appname$/"
++            },
++            {
++              "condition": "AND",
++              "key": "severity",
++              "operator": "=~",
++              "value": "/^$severity$/"
++            },
++            {
++              "condition": "AND",
++              "key": "message",
++              "operator": "=~",
++              "value": "/$Query/"
++            }
++          ]
++        }
++      ],
++      "title": "Syslog Messages",
++      "type": "table"
++    }
++  ],
++  "refresh": "5s",
++  "schemaVersion": 38,
++  "tags": [],
++  "templating": {
++    "list": [
++      {
++        "allValue": "",
++        "current": {
++          "selected": false,
++          "text": "All",
++          "value": "$__all"
++        },
++        "datasource": {
++          "type": "influxdb",
++          "uid": "PF877F614BFD14DDB"
++        },
++        "definition": "SHOW TAG VALUES FROM syslog WITH KEY=appname",
++        "hide": 0,
++        "includeAll": true,
++        "label": "Appname",
++        "multi": true,
++        "name": "appname",
++        "options": [],
++        "query": "SHOW TAG VALUES FROM syslog WITH KEY=appname",
++        "refresh": 2,
++        "regex": "",
++        "skipUrlSync": false,
++        "sort": 1,
++        "tagValuesQuery": "",
++        "tagsQuery": "",
++        "type": "query",
++        "useTags": false
++      },
++      {
++        "allValue": "",
++        "current": {
++          "selected": false,
++          "text": "All",
++          "value": "$__all"
++        },
++        "datasource": {
++          "type": "influxdb",
++          "uid": "PF877F614BFD14DDB"
++        },
++        "definition": "SHOW TAG VALUES FROM syslog WITH KEY=hostname",
++        "hide": 0,
++        "includeAll": true,
++        "label": "Hostname",
++        "multi": true,
++        "name": "hostname",
++        "options": [],
++        "query": "SHOW TAG VALUES FROM syslog WITH KEY=hostname",
++        "refresh": 2,
++        "regex": "",
++        "skipUrlSync": false,
++        "sort": 1,
++        "tagValuesQuery": "",
++        "tagsQuery": "",
++        "type": "query",
++        "useTags": false
++      },
++      {
++        "allValue": "",
++        "current": {
++          "selected": false,
++          "text": "All",
++          "value": "$__all"
++        },
++        "datasource": {
++          "type": "influxdb",
++          "uid": "PF877F614BFD14DDB"
++        },
++        "definition": "SHOW TAG VALUES FROM syslog WITH KEY=severity",
++        "hide": 0,
++        "includeAll": true,
++        "label": "Severity",
++        "multi": true,
++        "name": "severity",
++        "options": [],
++        "query": "SHOW TAG VALUES FROM syslog WITH KEY=severity",
++        "refresh": 2,
++        "regex": "",
++        "skipUrlSync": false,
++        "sort": 0,
++        "tagValuesQuery": "",
++        "tagsQuery": "",
++        "type": "query",
++        "useTags": false
++      },
++      {
++        "current": {
++          "selected": false,
++          "text": "",
++          "value": ""
++        },
++        "description": "Querystring",
++        "hide": 0,
++        "label": "MessageQuery",
++        "name": "Query",
++        "options": [
++          {
++            "selected": true,
++            "text": "",
++            "value": ""
++          }
++        ],
++        "query": "",
++        "skipUrlSync": false,
++        "type": "textbox"
++      }
++    ]
++  },
++  "time": {
++    "from": "now-1h",
++    "to": "now"
++  },
++  "timepicker": {
++    "refresh_intervals": [
++      "5s",
++      " 10s",
++      " 30s",
++      " 1m",
++      " 5m"
++    ],
++    "time_options": [
++      "5m",
++      "15m",
++      "1h",
++      "6h",
++      "12h",
++      "24h",
++      "2d",
++      "7d",
++      "30d"
++    ]
++  },
++  "timezone": "",
++  "title": "Syslog",
++  "uid": "TIYeHqRgZ",
++  "version": 2,
++  "weekStart": ""
++}
+\ No newline at end of file
+
+changed: [stealandsell-3] => (item=syslog.json)
+
+TASK [grafana : run grafna in docker] ******************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [stealandsell-3]
+
+RUNNING HANDLER [grafana : restart grafana] ************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "restarted": false,
++    "restarted": true,
+     "running": true
+ }
+
+changed: [stealandsell-3]
+
+PLAY [InfluxDB, Telegraf, pinger] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Download packages] ********************************************
+changed: [stealandsell-3] => (item={'url': 'https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb', 'dest': '/opt/influxdb_1.8.10_amd64.deb'})
+changed: [stealandsell-3] => (item={'url': 'https://dl.influxdata.com/telegraf/releases/telegraf_1.28.2-1_amd64.deb', 'dest': '/opt/telegraf_1.28.2-1_amd64.deb'})
+
+TASK [influxdb : Install packages] *********************************************
+Selecting previously unselected package influxdb.
+(Reading database ... 66377 files and directories currently installed.)
+Preparing to unpack /opt/influxdb_1.8.10_amd64.deb ...
+Unpacking influxdb (1.8.10-1) ...
+Setting up influxdb (1.8.10-1) ...
+Processing triggers for man-db (2.9.1-1) ...
+changed: [stealandsell-3] => (item={'deb': '/opt/influxdb_1.8.10_amd64.deb'})
+Selecting previously unselected package telegraf.
+(Reading database ... 66402 files and directories currently installed.)
+Preparing to unpack .../telegraf_1.28.2-1_amd64.deb ...
+Unpacking telegraf (1.28.2-1) ...
+Setting up telegraf (1.28.2-1) ...
+changed: [stealandsell-3] => (item={'deb': '/opt/telegraf_1.28.2-1_amd64.deb'})
+
+TASK [influxdb : Reconfigure telegraf & influxdb] ******************************
+diff skipped: destination file size is greater than 104448
+changed: [stealandsell-3] => (item={'src': 'telegraf.conf', 'dest': '/etc/telegraf/telegraf.conf'})
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpmtb4w2op/influxdb.conf
+@@ -0,0 +1,23 @@
++[meta]
++  dir = "/var/lib/influxdb/meta"
++[data]
++  dir = "/var/lib/influxdb/data"
++  wal-dir = "/var/lib/influxdb/wal"
++  series-id-set-cache-size = 100
++  query-log-enabled = false
++[coordinator]
++[retention]
++[shard-precreation]
++[monitor]
++[http]
++  bind-address = ":8086"
++  log-enabled = false
++  write-tracing = false
++[logging]
++[subscriber]
++[[graphite]]
++[[collectd]]
++[[opentsdb]]
++[[udp]]
++[continuous_queries]
++[tls]
+
+changed: [stealandsell-3] => (item={'src': 'influxdb.conf', 'dest': '/etc/telegraf/influxdb.conf'})
+
+TASK [influxdb : Start and enable services] ************************************
+changed: [stealandsell-3] => (item=influxdb)
+changed: [stealandsell-3] => (item=telegraf)
+
+TASK [influxdb : Prometheus influxdb exporter] *********************************
+changed: [stealandsell-3]
+
+TASK [influxdb : Copy service template] ****************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpyvb34ai1/influxdb_exporter.conf.j2
+@@ -0,0 +1,10 @@
++[Unit]
++Description=Influxdb Stats Exporter
++Documentation=https://github.com/carlpett/influxdb_stats_exporter
++
++[Service]
++User=prometheus
++ExecStart=/usr/local/bin/influx_stats_exporter_linux_amd64
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [stealandsell-3]
+
+TASK [influxdb : Influxdb Exporter] ********************************************
+changed: [stealandsell-3]
+
+TASK [influxdb : create /backup/influxdb directory] ****************************
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0700",
++    "owner": 34,
+     "path": "/home/backup/influxdb",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-3]
+
+TASK [influxdb : Create backup file] *******************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpeli3f5vb/influxdb-backup
+@@ -0,0 +1,5 @@
++0 1 * * 1-6 backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
++
++0 0 * * 5 backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://stealandsell@backup.gamblinggreats.io/influxdb
++
++0 1 * * 1-6 backup  duplicity --no-encryption incremental /home/backup/influxdb/  rsync://stealandsell@backup.gamblinggreats.io/influxdb
+
+changed: [stealandsell-3]
+
+TASK [pinger : Install fping] **************************************************
+The following additional packages will be installed:
+  libcurl4
+The following NEW packages will be installed:
+  fping
+The following packages will be upgraded:
+  curl libcurl4
+2 upgraded, 1 newly installed, 0 to remove and 259 not upgraded.
+changed: [stealandsell-3]
+
+TASK [pinger : Add the user "pinger"] ******************************************
+changed: [stealandsell-3]
+
+TASK [pinger : Create pinger configuration directory] **************************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "owner": 0,
++    "owner": 1001,
+     "path": "/etc/pinger",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [stealandsell-3]
+
+TASK [pinger : Create pinger configuration] ************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpy2h5ns92/pinger.conf.j2
+@@ -0,0 +1,3 @@
++database_url=http://stealandsell-3:8086
++database_name=latency
++targets=google.com,cloudflare.com,twitter.com
+
+changed: [stealandsell-3] => (item={'src': 'pinger.conf.j2', 'dest': '/etc/pinger/pinger.conf'})
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpp3xxacrk/pinger.service.j2
+@@ -0,0 +1,11 @@
++[Unit]
++Description=unit that makes pings to google.com,cloudflare.com,twitter.com amd writes response to db
++Documentation=none
++After=network-online.target
++
++[Service]
++User=pinger
++ExecStart=/usr/local/bin/pinger
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [stealandsell-3] => (item={'src': 'pinger.service.j2', 'dest': '/etc/systemd/system/pinger.service'})
+
+TASK [pinger : Setup pinger script] ********************************************
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp3o50a5h9/pinger.sh.j2
+@@ -0,0 +1,51 @@
++#!/bin/bash
++
++# Validate configuration file
++if [ ! -f /etc/pinger/pinger.conf ]; then
++  logger "$0 Failed to find configuration file"
++  exit 1
++fi
++
++# Read configuration variables
++database_url=$(grep "^database_url=" /etc/pinger/pinger.conf | sed 's/^database_url=//')
++database_name=$(grep "^database_name=" /etc/pinger/pinger.conf | sed 's/^database_name=//')
++targets=$(grep "^targets=" /etc/pinger/pinger.conf | sed 's/^targets=//')
++
++# Validate configuration variables
++if [ -z "$database_url" ] || [ -z "$database_name" ] || [ -z "$targets" ]; then
++  logger "$0 Failed to read all required configuration variables"
++  exit 1
++fi
++
++# Validate database URL
++#if ! grep -q "^https://" <<<"$database_url"; then
++#  logger "$0 Failed, database URL must use HTTPS protocol"
++#  exit 1
++#fi
++
++# Validate database name
++if grep -q "[^a-zA-Z0-9_]" <<<"$database_name"; then
++  logger "$0 Failed, database name contains forbidden characters"
++  exit 1
++fi
++
++targets=$(grep "^targets=" /etc/pinger/pinger.conf | sed 's/^.*=//' | sed 's/\(,\|;\)/ /g')
++
++if ! grep -v "[]^\!@#$%()[{}|_=+\`\"\'~?<>,\:/-]" <<<"$targets" | grep -Eq "[a-z0-9.]* {0,1}"; then
++    logger "$0 Failed, incorrect links to targets. Possible issues: use of special forbidden symbols, incorrect string pattern."
++    exit 1
++fi
++
++# Check if fping is installed
++which fping > /dev/null || (logger "fping not found"; exit 1)
++
++# Create database
++curl -k -XPOST "${database_url}/query" --data-urlencode "q=CREATE DATABASE $database_name" 1>/dev/null 2>/dev/null
++
++# Run pinger in loop
++while true; do
++  result=$(fping -C1 -q $targets 2>&1 | awk -v db=$database_name '{print db",dst="$1" rtt="$3}')
++  curl -k -XPOST "${database_url}/write?db=$database_name" --data-binary "$result" 1>/dev/null 2>/dev/null
++  sleep 1
++done
++
+
+changed: [stealandsell-3]
+
+TASK [pinger : start & enable pinger] ******************************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [influxdb : restart telegraf] **********************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [influxdb : reload daemon] *************************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [influxdb : restart influxdb exporter] *************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [pinger : reload systemd] **************************************
+changed: [stealandsell-3]
+
+RUNNING HANDLER [pinger : restart pinger] **************************************
+changed: [stealandsell-3]
+
+PLAY [Keepalived & Keepalived_exporter] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [keepalived : add keepalived_script user] *********************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+
+TASK [keepalived : Install Keepalived] *****************************************
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+
+TASK [keepalived : Copy keepalived script file] ********************************
+--- before
++++ after: /home/q0000/ica0002/roles/keepalived/files/vrrp_script.sh
+@@ -0,0 +1,2 @@
++#!/bin/bash
++ss -ntl | grep -q ':88 '
+
+changed: [stealandsell-1]
+--- before
++++ after: /home/q0000/ica0002/roles/keepalived/files/vrrp_script.sh
+@@ -0,0 +1,2 @@
++#!/bin/bash
++ss -ntl | grep -q ':88 '
+
+changed: [stealandsell-2]
+
+TASK [keepalived : copy confs] *************************************************
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-1] => (item=None)
+changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
+
+TASK [keepalived : Extract exporter into folder] *******************************
+changed: [stealandsell-2]
+changed: [stealandsell-1]
+
+TASK [keepalived : execute handlers] *******************************************
+
+RUNNING HANDLER [keepalived : restart daemon] **********************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+RUNNING HANDLER [keepalived : restart keepalived] ******************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+
+TASK [keepalived : Start keepalived on boot] ***********************************
+ok: [stealandsell-2] => (item=keepalived)
+ok: [stealandsell-1] => (item=keepalived)
+changed: [stealandsell-2] => (item=keepalived_exporter)
+changed: [stealandsell-1] => (item=keepalived_exporter)
+
+TASK [haproxy : Install haproxy and haproxy exporter] **************************
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0 prometheus-haproxy-exporter
+0 upgraded, 3 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0 prometheus-haproxy-exporter
+0 upgraded, 3 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-2]
+
+TASK [haproxy : Copy HAproxy conf file] ****************************************
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmply6enxry/haproxy.conf.j2
+@@ -7,15 +7,6 @@
+ 	user haproxy
+ 	group haproxy
+ 	daemon
+-
+-	# Default SSL material locations
+-	ca-base /etc/ssl/certs
+-	crt-base /etc/ssl/private
+-
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+ 
+ defaults
+ 	log	global
+@@ -32,3 +23,21 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++frontend stats
++    mode http
++    bind *:9188
++    stats enable
++    stats uri /haproxy?stats
++    stats refresh 5s
++
++
++listen my_ha_frontend
++    bind *:88 
++        server stealandsell-1_0  stealandsell-1:8001 check
++        server stealandsell-2_0  stealandsell-2:8001 check
++        server stealandsell-1_1  stealandsell-1:8002 check
++        server stealandsell-2_1  stealandsell-2:8002 check
++	
++
++
+
+changed: [stealandsell-1] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp4m7wd51x/haproxy.conf.j2
+@@ -7,15 +7,6 @@
+ 	user haproxy
+ 	group haproxy
+ 	daemon
+-
+-	# Default SSL material locations
+-	ca-base /etc/ssl/certs
+-	crt-base /etc/ssl/private
+-
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+ 
+ defaults
+ 	log	global
+@@ -32,3 +23,21 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++frontend stats
++    mode http
++    bind *:9188
++    stats enable
++    stats uri /haproxy?stats
++    stats refresh 5s
++
++
++listen my_ha_frontend
++    bind *:88 
++        server stealandsell-1_0  stealandsell-1:8001 check
++        server stealandsell-2_0  stealandsell-2:8001 check
++        server stealandsell-1_1  stealandsell-1:8002 check
++        server stealandsell-2_1  stealandsell-2:8002 check
++	
++
++
+
+changed: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
+--- before: /etc/default/prometheus-haproxy-exporter
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmpaeueyivg/haproxy.scrape-uri.j2
+@@ -1,35 +1 @@
+-# Set the command-line arguments to pass to the server.
+-# Due to shell scaping, to pass backslashes for regexes, you need to double
+-# them (\\d for \d). If running under systemd, you need to double them again
+-# (\\\\d to mean \d), and escape newlines too.
+-ARGS=""
+-
+-# Prometheus-haproxy-exporter supports the following options:
+-#
+-#  --web.listen-address=":9101"
+-#    Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#    Path under which to expose metrics.
+-#  --haproxy.scrape-uri="http://localhost/;csv"
+-#    URI on which to scrape HAProxy.
+-#  --haproxy.ssl-verify
+-#    Flag that enables SSL certificate verification for the scrape URI
+-#  --haproxy.server-metric-fields="2,3,4,5,6,7,8,9,13,14,15,16,17,18,21,24,33,35,38,39,40,41,42,43,44"
+-#    Comma-separated list of exported server metrics. See
+-#    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.1
+-#  --haproxy.timeout=5s
+-#    Timeout for trying to get stats from HAProxy.
+-#  --haproxy.pid-file=""
+-#    Path to HAProxy pid file.
+-#
+-#    If provided, the standard process metrics get exported for the HAProxy
+-#    process, prefixed with 'haproxy_process_...'. The haproxy_process exporter
+-#    needs to have read access to files owned by the HAProxy process. Depends
+-#    on the availability of /proc.
+-#    https://prometheus.io/docs/instrumenting/writing_clientlibs/#process-metrics.
+-#  --log.level="info"
+-#    Only log messages with the given severity or above.
+-#    Valid levels: [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#    Set the log target and format. Example:
+-#    "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
++ARGS='--haproxy.scrape-uri="http://stealandsell-1.gamblinggreats.io:9188/haproxy?stats;csv"'
+
+changed: [stealandsell-1] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+--- before: /etc/default/prometheus-haproxy-exporter
++++ after: /home/q0000/.ansible/tmp/ansible-local-3297wojjks65/tmp3wru83ym/haproxy.scrape-uri.j2
+@@ -1,35 +1 @@
+-# Set the command-line arguments to pass to the server.
+-# Due to shell scaping, to pass backslashes for regexes, you need to double
+-# them (\\d for \d). If running under systemd, you need to double them again
+-# (\\\\d to mean \d), and escape newlines too.
+-ARGS=""
+-
+-# Prometheus-haproxy-exporter supports the following options:
+-#
+-#  --web.listen-address=":9101"
+-#    Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#    Path under which to expose metrics.
+-#  --haproxy.scrape-uri="http://localhost/;csv"
+-#    URI on which to scrape HAProxy.
+-#  --haproxy.ssl-verify
+-#    Flag that enables SSL certificate verification for the scrape URI
+-#  --haproxy.server-metric-fields="2,3,4,5,6,7,8,9,13,14,15,16,17,18,21,24,33,35,38,39,40,41,42,43,44"
+-#    Comma-separated list of exported server metrics. See
+-#    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.1
+-#  --haproxy.timeout=5s
+-#    Timeout for trying to get stats from HAProxy.
+-#  --haproxy.pid-file=""
+-#    Path to HAProxy pid file.
+-#
+-#    If provided, the standard process metrics get exported for the HAProxy
+-#    process, prefixed with 'haproxy_process_...'. The haproxy_process exporter
+-#    needs to have read access to files owned by the HAProxy process. Depends
+-#    on the availability of /proc.
+-#    https://prometheus.io/docs/instrumenting/writing_clientlibs/#process-metrics.
+-#  --log.level="info"
+-#    Only log messages with the given severity or above.
+-#    Valid levels: [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#    Set the log target and format. Example:
+-#    "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
++ARGS='--haproxy.scrape-uri="http://stealandsell-2.gamblinggreats.io:9188/haproxy?stats;csv"'
+
+changed: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+
+TASK [haproxy : Start HAproxy on boot] *****************************************
+ok: [stealandsell-2] => (item=haproxy)
+ok: [stealandsell-1] => (item=haproxy)
+ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-1] => (item=prometheus-haproxy-exporter)
+
+RUNNING HANDLER [haproxy : restart haproxy exporter] ***************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+
+RUNNING HANDLER [haproxy : restart haproxy] ************************************
+changed: [stealandsell-1]
+changed: [stealandsell-2]
+
+PLAY RECAP *********************************************************************
+stealandsell-1             : ok=66   changed=48   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+stealandsell-2             : ok=66   changed=48   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+stealandsell-3             : ok=74   changed=57   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ ansible-playbook infra.yaml --diff
+
+PLAY [Initial setup] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : Update APT cache] *************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [init : install packages] *************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : start & enable node exporter] *************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [init : Ensure ca-certificates is up-to-date] *****************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : install rsyslog] **************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : copy conf] ********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [init : Start & enable] ***************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [init : install duplicity] ************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : create backup user] ***********************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : create restore directory] *****************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : Create template known_hosts] **************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : copy conf] ********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [init : Start & enable] ***************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+PLAY [DNS servers] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [bind : Install bind] *****************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+TASK [bind : copy confs] *******************************************************
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+
+TASK [bind : copy master zone file] ********************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Install Bind9 exporter] *******************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [bind : Enable Bind9 exporter] ********************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [bind : Set A records] ****************************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+TASK [bind : Set CNAME] ********************************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+PLAY [DNS Resolved] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [dns_resolved : Stop systemd-resolved] ************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [dns_resolved : Change DNS configuration] *********************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [docker : Docker package] *************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [docker : Docker service] *************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+PLAY [Database server] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Install mysql server] ********************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : start mysql server] **********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : override] ********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Install Pymsql] **************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : MySQL database] **************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Create MySQL users] **********************************************
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+
+TASK [mysql : replica  read-only ON] *******************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Install dependecies] *********************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Create directory] ************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : copy confs] ******************************************************
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+
+TASK [mysql : Force all notified handlers to run at this point, not waiting for normal sync points] ***
+
+TASK [mysql : Enabled] *********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : create backup/mysql directory] ***********************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Move backup.my.cnf file] *****************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Create user backup] **********************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : create backup file] **********************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+PLAY [agama] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [agama : Create agama dierectory] *****************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [agama : download dockerfile and agama itself] ****************************
+ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+
+TASK [agama : build agama] *****************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [agama : run agama instances] *********************************************
+ok: [stealandsell-1] => (item=0)
+ok: [stealandsell-2] => (item=0)
+ok: [stealandsell-1] => (item=1)
+ok: [stealandsell-2] => (item=1)
+
+PLAY [nginx conf] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [nginx : install nginx] ***************************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Copy Nginx default config to sites-enabled] **********************
+ok: [stealandsell-3]
+
+TASK [nginx : start n enable nginx] ********************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Install nginx exporter] ******************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Enable exporter] *************************************************
+ok: [stealandsell-3]
+
+PLAY [Configure Prometheus] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [prometheus : install prometheus] *****************************************
+ok: [stealandsell-3]
+
+TASK [prometheus : copy confs] *************************************************
+ok: [stealandsell-3] => (item={'src': 'prometheus.yml.j2', 'dest': '/etc/prometheus/prometheus.yml'})
+ok: [stealandsell-3] => (item={'src': 'prometheus.j2', 'dest': '/etc/systemd/system/prometheus.service'})
+
+TASK [prometheus : execute handlers] *******************************************
+
+TASK [prometheus : start prometheus] *******************************************
+ok: [stealandsell-3]
+
+PLAY [Configure Grafana] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [grafana : create dirs] ***************************************************
+ok: [stealandsell-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [stealandsell-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : copy confs] ****************************************************
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+TASK [grafana : Copy jsons] ****************************************************
+ok: [stealandsell-3] => (item=main.json)
+ok: [stealandsell-3] => (item=mysql.json)
+ok: [stealandsell-3] => (item=syslog.json)
+
+TASK [grafana : run grafna in docker] ******************************************
+ok: [stealandsell-3]
+
+PLAY [InfluxDB, Telegraf, pinger] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Download packages] ********************************************
+ok: [stealandsell-3] => (item={'url': 'https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb', 'dest': '/opt/influxdb_1.8.10_amd64.deb'})
+ok: [stealandsell-3] => (item={'url': 'https://dl.influxdata.com/telegraf/releases/telegraf_1.28.2-1_amd64.deb', 'dest': '/opt/telegraf_1.28.2-1_amd64.deb'})
+
+TASK [influxdb : Install packages] *********************************************
+ok: [stealandsell-3] => (item={'deb': '/opt/influxdb_1.8.10_amd64.deb'})
+ok: [stealandsell-3] => (item={'deb': '/opt/telegraf_1.28.2-1_amd64.deb'})
+
+TASK [influxdb : Reconfigure telegraf & influxdb] ******************************
+ok: [stealandsell-3] => (item={'src': 'telegraf.conf', 'dest': '/etc/telegraf/telegraf.conf'})
+ok: [stealandsell-3] => (item={'src': 'influxdb.conf', 'dest': '/etc/telegraf/influxdb.conf'})
+
+TASK [influxdb : Start and enable services] ************************************
+ok: [stealandsell-3] => (item=influxdb)
+ok: [stealandsell-3] => (item=telegraf)
+
+TASK [influxdb : Prometheus influxdb exporter] *********************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Copy service template] ****************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Influxdb Exporter] ********************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : create /backup/influxdb directory] ****************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Create backup file] *******************************************
+ok: [stealandsell-3]
+
+TASK [pinger : Install fping] **************************************************
+ok: [stealandsell-3]
+
+TASK [pinger : Add the user "pinger"] ******************************************
+ok: [stealandsell-3]
+
+TASK [pinger : Create pinger configuration directory] **************************
+ok: [stealandsell-3]
+
+TASK [pinger : Create pinger configuration] ************************************
+ok: [stealandsell-3] => (item={'src': 'pinger.conf.j2', 'dest': '/etc/pinger/pinger.conf'})
+ok: [stealandsell-3] => (item={'src': 'pinger.service.j2', 'dest': '/etc/systemd/system/pinger.service'})
+
+TASK [pinger : Setup pinger script] ********************************************
+ok: [stealandsell-3]
+
+TASK [pinger : start & enable pinger] ******************************************
+ok: [stealandsell-3]
+
+PLAY [Keepalived & Keepalived_exporter] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : add keepalived_script user] *********************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : Install Keepalived] *****************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : Copy keepalived script file] ********************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : copy confs] *************************************************
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+
+TASK [keepalived : Extract exporter into folder] *******************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : execute handlers] *******************************************
+
+TASK [keepalived : Start keepalived on boot] ***********************************
+ok: [stealandsell-1] => (item=keepalived)
+ok: [stealandsell-2] => (item=keepalived)
+ok: [stealandsell-1] => (item=keepalived_exporter)
+ok: [stealandsell-2] => (item=keepalived_exporter)
+
+TASK [haproxy : Install haproxy and haproxy exporter] **************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [haproxy : Copy HAproxy conf file] ****************************************
+ok: [stealandsell-1] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
+ok: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
+ok: [stealandsell-1] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+ok: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+
+TASK [haproxy : Start HAproxy on boot] *****************************************
+ok: [stealandsell-1] => (item=haproxy)
+ok: [stealandsell-2] => (item=haproxy)
+ok: [stealandsell-1] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
+
+PLAY RECAP *********************************************************************
+stealandsell-1             : ok=56   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+stealandsell-2             : ok=56   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+stealandsell-3             : ok=59   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ ansible all -b -m reboot -a test_command=uptime
+stealandsell-3 | CHANGED => {
+    "changed": true,
+    "elapsed": 29,
+    "rebooted": true
+}
+stealandsell-2 | CHANGED => {
+    "changed": true,
+    "elapsed": 47,
+    "rebooted": true
+}
+stealandsell-1 | CHANGED => {
+    "changed": true,
+    "elapsed": 48,
+    "rebooted": true
+}
++ ansible-playbook infra.yaml --diff
+
+PLAY [Initial setup] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : Update APT cache] *************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [init : install packages] *************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : start & enable node exporter] *************************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+TASK [init : Ensure ca-certificates is up-to-date] *****************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+TASK [init : install rsyslog] **************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : copy conf] ********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : Start & enable] ***************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [init : install duplicity] ************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [init : create backup user] ***********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [init : create restore directory] *****************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+TASK [init : Create template known_hosts] **************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [init : copy conf] ********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [init : Start & enable] ***************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+PLAY [DNS servers] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [bind : Install bind] *****************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+
+TASK [bind : copy confs] *******************************************************
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+
+TASK [bind : copy master zone file] ********************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Install Bind9 exporter] *******************************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+TASK [bind : Enable Bind9 exporter] ********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+TASK [bind : Set A records] ****************************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+TASK [bind : Set CNAME] ********************************************************
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2] => (item=None) 
+skipping: [stealandsell-2]
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+PLAY [DNS Resolved] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+TASK [dns_resolved : Stop systemd-resolved] ************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [dns_resolved : Change DNS configuration] *********************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [docker : Docker package] *************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
+
+TASK [docker : Docker service] *************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-3]
+ok: [stealandsell-1]
+
+PLAY [Database server] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : Install mysql server] ********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : start mysql server] **********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : override] ********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : Install Pymsql] **************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : MySQL database] **************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Create MySQL users] **********************************************
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+
+TASK [mysql : replica  read-only ON] *******************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Install dependecies] *********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : Create directory] ************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : copy confs] ******************************************************
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+
+TASK [mysql : Force all notified handlers to run at this point, not waiting for normal sync points] ***
+
+TASK [mysql : Enabled] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : create backup/mysql directory] ***********************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [mysql : Move backup.my.cnf file] *****************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : Create user backup] **********************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [mysql : create backup file] **********************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+PLAY [agama] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [agama : Create agama dierectory] *****************************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [agama : download dockerfile and agama itself] ****************************
+ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+
+TASK [agama : build agama] *****************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [agama : run agama instances] *********************************************
+ok: [stealandsell-1] => (item=0)
+ok: [stealandsell-2] => (item=0)
+ok: [stealandsell-1] => (item=1)
+ok: [stealandsell-2] => (item=1)
+
+PLAY [nginx conf] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [nginx : install nginx] ***************************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Copy Nginx default config to sites-enabled] **********************
+ok: [stealandsell-3]
+
+TASK [nginx : start n enable nginx] ********************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Install nginx exporter] ******************************************
+ok: [stealandsell-3]
+
+TASK [nginx : Enable exporter] *************************************************
+ok: [stealandsell-3]
+
+PLAY [Configure Prometheus] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [prometheus : install prometheus] *****************************************
+ok: [stealandsell-3]
+
+TASK [prometheus : copy confs] *************************************************
+ok: [stealandsell-3] => (item={'src': 'prometheus.yml.j2', 'dest': '/etc/prometheus/prometheus.yml'})
+ok: [stealandsell-3] => (item={'src': 'prometheus.j2', 'dest': '/etc/systemd/system/prometheus.service'})
+
+TASK [prometheus : execute handlers] *******************************************
+
+TASK [prometheus : start prometheus] *******************************************
+ok: [stealandsell-3]
+
+PLAY [Configure Grafana] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [grafana : create dirs] ***************************************************
+ok: [stealandsell-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [stealandsell-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : copy confs] ****************************************************
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3] => (item=None)
+ok: [stealandsell-3]
+
+TASK [grafana : Copy jsons] ****************************************************
+ok: [stealandsell-3] => (item=main.json)
+ok: [stealandsell-3] => (item=mysql.json)
+ok: [stealandsell-3] => (item=syslog.json)
+
+TASK [grafana : run grafna in docker] ******************************************
+ok: [stealandsell-3]
+
+PLAY [InfluxDB, Telegraf, pinger] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Download packages] ********************************************
+ok: [stealandsell-3] => (item={'url': 'https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb', 'dest': '/opt/influxdb_1.8.10_amd64.deb'})
+ok: [stealandsell-3] => (item={'url': 'https://dl.influxdata.com/telegraf/releases/telegraf_1.28.2-1_amd64.deb', 'dest': '/opt/telegraf_1.28.2-1_amd64.deb'})
+
+TASK [influxdb : Install packages] *********************************************
+ok: [stealandsell-3] => (item={'deb': '/opt/influxdb_1.8.10_amd64.deb'})
+ok: [stealandsell-3] => (item={'deb': '/opt/telegraf_1.28.2-1_amd64.deb'})
+
+TASK [influxdb : Reconfigure telegraf & influxdb] ******************************
+ok: [stealandsell-3] => (item={'src': 'telegraf.conf', 'dest': '/etc/telegraf/telegraf.conf'})
+ok: [stealandsell-3] => (item={'src': 'influxdb.conf', 'dest': '/etc/telegraf/influxdb.conf'})
+
+TASK [influxdb : Start and enable services] ************************************
+ok: [stealandsell-3] => (item=influxdb)
+ok: [stealandsell-3] => (item=telegraf)
+
+TASK [influxdb : Prometheus influxdb exporter] *********************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Copy service template] ****************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Influxdb Exporter] ********************************************
+ok: [stealandsell-3]
+
+TASK [influxdb : create /backup/influxdb directory] ****************************
+ok: [stealandsell-3]
+
+TASK [influxdb : Create backup file] *******************************************
+ok: [stealandsell-3]
+
+TASK [pinger : Install fping] **************************************************
+ok: [stealandsell-3]
+
+TASK [pinger : Add the user "pinger"] ******************************************
+ok: [stealandsell-3]
+
+TASK [pinger : Create pinger configuration directory] **************************
+ok: [stealandsell-3]
+
+TASK [pinger : Create pinger configuration] ************************************
+ok: [stealandsell-3] => (item={'src': 'pinger.conf.j2', 'dest': '/etc/pinger/pinger.conf'})
+ok: [stealandsell-3] => (item={'src': 'pinger.service.j2', 'dest': '/etc/systemd/system/pinger.service'})
+
+TASK [pinger : Setup pinger script] ********************************************
+ok: [stealandsell-3]
+
+TASK [pinger : start & enable pinger] ******************************************
+ok: [stealandsell-3]
+
+PLAY [Keepalived & Keepalived_exporter] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : add keepalived_script user] *********************************
+ok: [stealandsell-2]
+ok: [stealandsell-1]
+
+TASK [keepalived : Install Keepalived] *****************************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : Copy keepalived script file] ********************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : copy confs] *************************************************
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
+
+TASK [keepalived : Extract exporter into folder] *******************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [keepalived : execute handlers] *******************************************
+
+TASK [keepalived : Start keepalived on boot] ***********************************
+ok: [stealandsell-1] => (item=keepalived)
+ok: [stealandsell-2] => (item=keepalived)
+ok: [stealandsell-1] => (item=keepalived_exporter)
+ok: [stealandsell-2] => (item=keepalived_exporter)
+
+TASK [haproxy : Install haproxy and haproxy exporter] **************************
+ok: [stealandsell-1]
+ok: [stealandsell-2]
+
+TASK [haproxy : Copy HAproxy conf file] ****************************************
+ok: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
+ok: [stealandsell-1] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
+ok: [stealandsell-1] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+ok: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+
+TASK [haproxy : Start HAproxy on boot] *****************************************
+ok: [stealandsell-1] => (item=haproxy)
+ok: [stealandsell-2] => (item=haproxy)
+ok: [stealandsell-1] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
+
+PLAY RECAP *********************************************************************
+stealandsell-1             : ok=56   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+stealandsell-2             : ok=56   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+stealandsell-3             : ok=59   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ date
+K 13 dets  2023 11:21:24 EET

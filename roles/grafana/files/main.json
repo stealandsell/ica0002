@@ -664,11 +664,17 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "code",
-          "expr": "nginx_up",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "nginx_up{job=\"nginx_exporters\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "title": "Nginx status",
@@ -861,7 +867,6 @@
           ]
         }
       ],
-      "timeFrom": "2h",
       "title": "latency",
       "type": "timeseries"
     },
@@ -952,7 +957,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "influxdb_write_write_ok{instance=\"stealandsell-2:9424\"}",
+          "expr": "influxdb_write_write_ok{instance=\"stealandsell-3:9424\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -1211,7 +1216,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "influxdb_exporter_stats_query_success{instance=\"stealandsell-2:9424\"}",
+          "expr": "influxdb_exporter_stats_query_success{job=\"influxdb\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
