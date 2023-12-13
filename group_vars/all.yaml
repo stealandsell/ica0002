@@ -147,16 +147,11 @@ dns_cname_records:
   haproxy2: "{{ groups['haproxy'][1] }}"
   mysql1: "{{ groups['db_servers'][0] }}"
   mysql2: "{{ groups['db_servers'][1] }}"
-  agama1: "{{ groups['agama'][0] }}"
-  agama2: "{{ groups['agama'][1] }}"
   dns1: "{{ groups['dns_servers'][0] }}"
   dns2: "{{ groups['dns_servers'][1] }}"
+  dns3: "{{ groups['dns_servers'][2] }}"
   prometheus: "{{ groups['prometheus'][0] }}"
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
-  rsyslog1: "{{ groups['rsyslog'][0] }}"
-  rsyslog2: "{{ groups['rsyslog'][1] }}"
-  keepalived1: "{{ groups['keepalived'][0] }}"
-  keepalived2: "{{ groups['keepalived'][1] }}"
   
 
