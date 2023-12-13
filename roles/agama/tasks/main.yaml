@@ -28,7 +28,7 @@
     image: agama
     published_ports: "{{ agama_start_port + item}}:{{agama_start_port-1}}"
     env:
-       AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}///{{ mysql_database }}
+       AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
     restart_policy: always
   loop: "{{ range(agama_per_vm) }}"
   no_log: true
