@@ -8,9 +8,9 @@
 
 ------------------------------------------[Versioning and retention]
 
-+ Local backup - once a day at 01:00 - deleted once a day right before new backup is made.
-+ Full backup - every Sunday at 01:30 - kept for one month.
-+ Incremental backup - (Monday -> Saturday) 01:30 - kept for one week.
++ Local backup - once a day at 23:30 - deleted once a day right before new backup is made.
++ Full backup - every Friday at 00:00 - kept for one month.
++ Incremental backup - (Monday -> Saturday) 00:30 - kept for one week.
 
 ------------------------------------------[Usability checks]
 
