@@ -24,7 +24,7 @@ Restore MySQL data from the backup:
     sudo -u backup duplicity --no-encryption restore rsync://stealandsell@backup.gamblinggreats.io/influxdb /home/backup/restore/influxdb
     sudo service telegraf stop
     influx -execute 'DROP DATABASE telegraf'
-    influxd restore -portable -database telegraf /home/backup/restore/influxdb
+    sudo influxd restore -portable -database telegraf /home/backup/restore/influxdb
     
 
 After you have verified that backup was restore successfully, run

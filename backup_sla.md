@@ -6,9 +6,10 @@
 
 + The incremental backup system restores data prior to the point where it was lost
 
++ The maximum amount of data we can lose is 23 hours
+
 ------------------------------------------[Versioning and retention]
 
-+ Local backup - once a day at 23:30 - deleted once a day right before new backup is made.
 + Full backup - every Friday at 00:00 - kept for one month.
 + Incremental backup - (Monday -> Saturday) 00:30 - kept for one week.
 
