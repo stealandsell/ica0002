@@ -1,4 +1,4 @@
-N 14 dets  2023 20:49:55 EET
+R 15 dets  2023 14:16:52 EET
 + hostname
 0000
 + ansible-playbook infra.yaml --diff
@@ -6,13 +6,13 @@ N 14 dets  2023 20:49:55 EET
 PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [init : Update APT cache] *************************************************
-changed: [stealandsell-1]
 changed: [stealandsell-3]
+changed: [stealandsell-1]
 changed: [stealandsell-2]
 
 TASK [init : install packages] *************************************************
@@ -26,6 +26,17 @@ The following NEW packages will be installed:
   moreutils prometheus-node-exporter prometheus-node-exporter-collectors
   smartmontools
 0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [stealandsell-1]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
 changed: [stealandsell-2]
 The following additional packages will be installed:
   libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
@@ -38,36 +49,25 @@ The following NEW packages will be installed:
   smartmontools
 0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
 changed: [stealandsell-3]
-The following additional packages will be installed:
-  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
-  moreutils prometheus-node-exporter-collectors smartmontools
-Suggested packages:
-  gsmartcontrol smart-notifier mailx | mailutils
-The following NEW packages will be installed:
-  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
-  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
-  smartmontools
-0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
-changed: [stealandsell-1]
 
 TASK [init : start & enable node exporter] *************************************
-ok: [stealandsell-2]
 ok: [stealandsell-3]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [init : Ensure ca-certificates is up-to-date] *****************************
 The following packages will be upgraded:
   ca-certificates
 1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
-changed: [stealandsell-2]
-The following packages will be upgraded:
-  ca-certificates
-1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
 changed: [stealandsell-1]
 The following packages will be upgraded:
   ca-certificates
 1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
 changed: [stealandsell-3]
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [stealandsell-2]
 
 TASK [init : install rsyslog] **************************************************
 Suggested packages:
@@ -76,14 +76,14 @@ Suggested packages:
 The following packages will be upgraded:
   rsyslog
 1 upgraded, 0 newly installed, 0 to remove and 263 not upgraded.
-changed: [stealandsell-2]
+changed: [stealandsell-3]
 Suggested packages:
   rsyslog-mysql | rsyslog-pgsql rsyslog-mongodb rsyslog-doc rsyslog-openssl
   | rsyslog-gnutls rsyslog-gssapi rsyslog-relp
 The following packages will be upgraded:
   rsyslog
 1 upgraded, 0 newly installed, 0 to remove and 263 not upgraded.
-changed: [stealandsell-3]
+changed: [stealandsell-2]
 Suggested packages:
   rsyslog-mysql | rsyslog-pgsql rsyslog-mongodb rsyslog-doc rsyslog-openssl
   | rsyslog-gnutls rsyslog-gssapi rsyslog-relp
@@ -94,7 +94,21 @@ changed: [stealandsell-1]
 
 TASK [init : copy conf] ********************************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmp95kqhen3/50-telegraf.conf
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpivfa7qfd/50-telegraf.conf
+@@ -0,0 +1,9 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++
++# uncomment to use udp according to RFC 5424
++*.* @127.0.0.1:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [stealandsell-1]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpmzcitl8q/50-telegraf.conf
 @@ -0,0 +1,9 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -108,7 +122,7 @@ TASK [init : copy conf] ********************************************************
 
 changed: [stealandsell-2]
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmp7zcn6unx/50-telegraf.conf
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp4ptydce6/50-telegraf.conf
 @@ -0,0 +1,9 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -121,24 +135,10 @@ changed: [stealandsell-2]
 +
 
 changed: [stealandsell-3]
---- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpedfyorqx/50-telegraf.conf
-@@ -0,0 +1,9 @@
-+$ActionQueueType LinkedList # use asynchronous processing
-+$ActionQueueFileName srvrfwd # set file name, also enables disk mode
-+$ActionResumeRetryCount -1 # infinite retries on insert failure
-+$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
-+
-+
-+# uncomment to use udp according to RFC 5424
-+*.* @127.0.0.1:6514;RSYSLOG_SyslogProtocol23Format
-+
-
-changed: [stealandsell-1]
 
 TASK [init : Start & enable] ***************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 ok: [stealandsell-3]
 
 TASK [init : install duplicity] ************************************************
@@ -233,15 +233,7 @@ changed: [stealandsell-3]
 
 TASK [init : Create template known_hosts] **************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmptijrwaz8/known_hosts
-@@ -0,0 +1,3 @@
-+192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
-+backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
-+backup.gamblinggreats.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
-
-changed: [stealandsell-1]
---- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpdnzxn56i/known_hosts
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp5keznmhg/known_hosts
 @@ -0,0 +1,3 @@
 +192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
@@ -249,34 +241,42 @@ changed: [stealandsell-1]
 
 changed: [stealandsell-2]
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpu6iph7tq/known_hosts
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpc7dd1xaq/known_hosts
 @@ -0,0 +1,3 @@
 +192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup.gamblinggreats.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
 changed: [stealandsell-3]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpu2g9rx_z/known_hosts
+@@ -0,0 +1,3 @@
++192.168.42.132 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.gamblinggreats.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
+changed: [stealandsell-1]
 
 TASK [init : copy conf] ********************************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : Start & enable] ***************************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 RUNNING HANDLER [init : restart rsyslog] ***************************************
+changed: [stealandsell-1]
 changed: [stealandsell-2]
 changed: [stealandsell-3]
-changed: [stealandsell-1]
 
 PLAY [DNS servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [bind : Install bind] *****************************************************
@@ -289,7 +289,7 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 5 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 The following additional packages will be installed:
   bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
 Suggested packages:
@@ -309,21 +309,21 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 5 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [bind : Enable Bind9] *****************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [bind : copy confs] *******************************************************
-changed: [stealandsell-2] => (item=None)
-changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-2] => (item=None)
-changed: [stealandsell-2]
+changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-1]
 
@@ -341,38 +341,38 @@ changed: [stealandsell-3]
 TASK [bind : Execute handlers preemptively] ************************************
 
 RUNNING HANDLER [bind : restart bind9] *****************************************
-changed: [stealandsell-1]
-changed: [stealandsell-3]
 changed: [stealandsell-2]
+changed: [stealandsell-3]
+changed: [stealandsell-1]
 
 RUNNING HANDLER [bind : reload rndc] *******************************************
 changed: [stealandsell-3]
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [bind : Install Bind9 exporter] *******************************************
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
-The following NEW packages will be installed:
-  prometheus-bind-exporter
-0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
 changed: [stealandsell-2]
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
 changed: [stealandsell-3]
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
 
 TASK [bind : Enable Bind9 exporter] ********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [bind : Set A records] ****************************************************
 skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-1]
+skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2]
 changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3]
@@ -390,19 +390,7 @@ skipping: [stealandsell-1] => (item=None)
 skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1]
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
@@ -428,20 +416,14 @@ changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3] => (item=None)
-changed: [stealandsell-3] => (item=None)
-changed: [stealandsell-3] => (item=None)
-changed: [stealandsell-3] => (item=None)
-changed: [stealandsell-3] => (item=None)
-changed: [stealandsell-3] => (item=None)
-changed: [stealandsell-3] => (item=None)
 changed: [stealandsell-3]
 
 PLAY [DNS Resolved] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [dns_resolved : Stop systemd-resolved] ************************************
 changed: [stealandsell-1]
@@ -450,7 +432,7 @@ changed: [stealandsell-3]
 
 TASK [dns_resolved : Change DNS configuration] *********************************
 --- before: /etc/resolv.conf
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmp2cl5hw9m/resolv.conf.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpf4_5dlnz/resolv.conf.j2
 @@ -1,19 +1,6 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -467,8 +449,8 @@ TASK [dns_resolved : Change DNS configuration] *********************************
 -#
 -# See man:systemd-resolved.service(8) for details about the supported modes of
 -# operation for /etc/resolv.conf.
-+nameserver 192.168.43.155
-+nameserver 192.168.43.131
++nameserver 192.168.42.47
++nameserver 192.168.42.26
  
 -nameserver 127.0.0.53
 -options edns0 trust-ad
@@ -479,7 +461,7 @@ TASK [dns_resolved : Change DNS configuration] *********************************
 
 changed: [stealandsell-1]
 --- before: /etc/resolv.conf
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpot2za16d/resolv.conf.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpi6qq67wf/resolv.conf.j2
 @@ -1,19 +1,6 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -496,8 +478,8 @@ changed: [stealandsell-1]
 -#
 -# See man:systemd-resolved.service(8) for details about the supported modes of
 -# operation for /etc/resolv.conf.
-+nameserver 192.168.43.155
-+nameserver 192.168.43.131
++nameserver 192.168.42.47
++nameserver 192.168.42.26
  
 -nameserver 127.0.0.53
 -options edns0 trust-ad
@@ -508,7 +490,7 @@ changed: [stealandsell-1]
 
 changed: [stealandsell-2]
 --- before: /etc/resolv.conf
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpc0ikk76s/resolv.conf.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpoc_h30fz/resolv.conf.j2
 @@ -1,19 +1,6 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -525,8 +507,8 @@ changed: [stealandsell-2]
 -#
 -# See man:systemd-resolved.service(8) for details about the supported modes of
 -# operation for /etc/resolv.conf.
-+nameserver 192.168.43.155
-+nameserver 192.168.43.131
++nameserver 192.168.42.47
++nameserver 192.168.42.26
  
 -nameserver 127.0.0.53
 -options edns0 trust-ad
@@ -540,11 +522,22 @@ changed: [stealandsell-3]
 PLAY [Docker] ******************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [docker : Docker package] *************************************************
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 261 not upgraded.
+changed: [stealandsell-1]
 The following additional packages will be installed:
   bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
   ubuntu-fan
@@ -567,17 +560,6 @@ The following NEW packages will be installed:
   python3-websocket runc ubuntu-fan
 0 upgraded, 10 newly installed, 0 to remove and 261 not upgraded.
 changed: [stealandsell-3]
-The following additional packages will be installed:
-  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
-  ubuntu-fan
-Suggested packages:
-  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
-  rinse zfs-fuse | zfsutils
-The following NEW packages will be installed:
-  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
-  python3-websocket runc ubuntu-fan
-0 upgraded, 10 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
 
 TASK [docker : Docker service] *************************************************
 ok: [stealandsell-1]
@@ -587,8 +569,8 @@ ok: [stealandsell-2]
 PLAY [Database server] *********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Install mysql server] ********************************************
 The following additional packages will be installed:
@@ -608,7 +590,7 @@ The following NEW packages will be installed:
   mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
   mysql-server-8.0 mysql-server-core-8.0
 0 upgraded, 24 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 The following additional packages will be installed:
   libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
   libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
@@ -626,7 +608,7 @@ The following NEW packages will be installed:
   mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
   mysql-server-8.0 mysql-server-core-8.0
 0 upgraded, 24 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [mysql : start mysql server] **********************************************
 ok: [stealandsell-1]
@@ -634,7 +616,7 @@ ok: [stealandsell-2]
 
 TASK [mysql : override] ********************************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpg25wxuho/override.cnf
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpgmngo5xr/override.cnf
 @@ -0,0 +1,7 @@
 +[mysqld]
 +bind-address = 0.0.0.0
@@ -642,11 +624,11 @@ TASK [mysql : override] ********************************************************
 +log-bin = /var/log/mysql/mysql-bin.log
 +relay-log = /var/log/mysql/mysql-relay.log
 +replicate-do-db = agama
-+server-id = 411
++server-id = 47
 
 changed: [stealandsell-1]
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpunog95zc/override.cnf
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpfs3gm8yl/override.cnf
 @@ -0,0 +1,7 @@
 +[mysqld]
 +bind-address = 0.0.0.0
@@ -654,7 +636,7 @@ changed: [stealandsell-1]
 +log-bin = /var/log/mysql/mysql-bin.log
 +relay-log = /var/log/mysql/mysql-relay.log
 +replicate-do-db = agama
-+server-id = 387
++server-id = 26
 
 changed: [stealandsell-2]
 
@@ -664,17 +646,17 @@ Suggested packages:
 The following NEW packages will be installed:
   python3-pymysql
 0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 Suggested packages:
   python-pymysql-doc
 The following NEW packages will be installed:
   python3-pymysql
 0 upgraded, 1 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [mysql : MySQL database] **************************************************
-changed: [stealandsell-1]
 changed: [stealandsell-2]
+changed: [stealandsell-1]
 
 TASK [mysql : Create MySQL users] **********************************************
 changed: [stealandsell-2] => (item=None)
@@ -687,8 +669,8 @@ changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-1]
 
 TASK [mysql : replica  read-only ON] *******************************************
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [mysql : Install dependecies] *********************************************
 The following additional packages will be installed:
@@ -696,25 +678,25 @@ The following additional packages will be installed:
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 The following additional packages will be installed:
   daemon
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [mysql : Create directory] ************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : copy confs] ******************************************************
-changed: [stealandsell-2] => (item=None)
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-2] => (item=None)
-changed: [stealandsell-2]
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
 
 TASK [mysql : Force all notified handlers to run at this point, not waiting for normal sync points] ***
 
@@ -762,7 +744,7 @@ TASK [mysql : create backup/mysql directory] ***********************************
 +    "state": "directory"
  }
 
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 --- before
 +++ after
 @@ -1,7 +1,7 @@
@@ -778,19 +760,25 @@ changed: [stealandsell-2]
 +    "state": "directory"
  }
 
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [mysql : Move backup.my.cnf file] *****************************************
 changed: [stealandsell-2]
 changed: [stealandsell-1]
 
 TASK [mysql : Create user backup] **********************************************
-changed: [stealandsell-1]
 changed: [stealandsell-2]
+changed: [stealandsell-1]
 
 TASK [mysql : create backup file] **********************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmp0_1uueeh/mysql-backup
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp4m_d06w4/mysql-backup
+@@ -0,0 +1 @@
++
+
+changed: [stealandsell-1]
+--- before
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp4ylu_iyz/mysql-backup
 @@ -0,0 +1,5 @@
 +MAILTO=""
 +
@@ -799,18 +787,12 @@ TASK [mysql : create backup file] **********************************************
 +30 0 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://stealandsell@backup.gamblinggreats.io/mysql
 
 changed: [stealandsell-2]
---- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpbrbmk5vi/mysql-backup
-@@ -0,0 +1 @@
-+
-
-changed: [stealandsell-1]
 
 PLAY [agama] *******************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-2]
+ok: [stealandsell-1]
 
 TASK [agama : Create agama dierectory] *****************************************
 --- before
@@ -837,22 +819,22 @@ changed: [stealandsell-2]
 TASK [agama : download dockerfile and agama itself] ****************************
 changed: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
 changed: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
-changed: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
 changed: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+changed: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
 
 TASK [agama : build agama] *****************************************************
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [agama : run agama instances] *********************************************
-changed: [stealandsell-2] => (item=None)
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-2] => (item=None)
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-2] => (item=None)
-changed: [stealandsell-2]
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
 
 PLAY [nginx conf] **************************************************************
 
@@ -877,7 +859,7 @@ changed: [stealandsell-3]
 
 TASK [nginx : Copy Nginx default config to sites-enabled] **********************
 --- before: /etc/nginx/sites-enabled/default
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmp5g_p0teh/default.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpz0b9q2tp/default.j2
 @@ -1,91 +1,41 @@
 -##
 -# You should look at the following URL's in order to grasp a solid understanding
@@ -1055,7 +1037,7 @@ changed: [stealandsell-3]
 
 TASK [prometheus : copy confs] *************************************************
 --- before: /etc/prometheus/prometheus.yml
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpb0wlplwm/prometheus.yml.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpudvbgl95/prometheus.yml.j2
 @@ -1,44 +1,53 @@
 -# Sample config for Prometheus.
 +global:
@@ -1153,7 +1135,7 @@ TASK [prometheus : copy confs] *************************************************
 
 changed: [stealandsell-3] => (item={'src': 'prometheus.yml.j2', 'dest': '/etc/prometheus/prometheus.yml'})
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmplop65o7d/prometheus.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmphv8hnpdr/prometheus.j2
 @@ -0,0 +1,14 @@
 +[Unit]
 +Description=Prometheus
@@ -1164,7 +1146,7 @@ changed: [stealandsell-3] => (item={'src': 'prometheus.yml.j2', 'dest': '/etc/pr
 +User=prometheus
 +Group=prometheus
 +Type=simple
-+ExecStart=/usr/bin/prometheus $ARGS --web.external-url=http://193.40.156.67:44180/prometheus
++ExecStart=/usr/bin/prometheus $ARGS --web.external-url=http://193.40.156.67:10380/prometheus
 +
 +
 +[Install]
@@ -4170,7 +4152,7 @@ TASK [influxdb : Reconfigure telegraf & influxdb] ******************************
 diff skipped: destination file size is greater than 104448
 changed: [stealandsell-3] => (item={'src': 'telegraf.conf', 'dest': '/etc/telegraf/telegraf.conf'})
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpldjjyua3/influxdb.conf
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpdqg2jgdz/influxdb.conf
 @@ -0,0 +1,23 @@
 +[meta]
 +  dir = "/var/lib/influxdb/meta"
@@ -4207,7 +4189,7 @@ changed: [stealandsell-3]
 
 TASK [influxdb : Copy service template] ****************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpldfjdbnv/influxdb_exporter.conf.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp1z18z1k0/influxdb_exporter.conf.j2
 @@ -0,0 +1,10 @@
 +[Unit]
 +Description=Influxdb Stats Exporter
@@ -4245,7 +4227,7 @@ changed: [stealandsell-3]
 
 TASK [influxdb : Create backup file] *******************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpcgwqx90d/influxdb-backup
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp56n3ay2v/influxdb-backup
 @@ -0,0 +1,5 @@
 +30 23 * * 1-6 backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
 +
@@ -4284,7 +4266,7 @@ changed: [stealandsell-3]
 
 TASK [pinger : Create pinger configuration] ************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpeqgxwtb5/pinger.conf.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmp5qlkpww1/pinger.conf.j2
 @@ -0,0 +1,3 @@
 +database_url=http://stealandsell-3:8086
 +database_name=latency
@@ -4292,7 +4274,7 @@ TASK [pinger : Create pinger configuration] ************************************
 
 changed: [stealandsell-3] => (item={'src': 'pinger.conf.j2', 'dest': '/etc/pinger/pinger.conf'})
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpjp7_p132/pinger.service.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpk3x5_ml3/pinger.service.j2
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=unit that makes pings to google.com,cloudflare.com,twitter.com amd writes response to db
@@ -4310,7 +4292,7 @@ changed: [stealandsell-3] => (item={'src': 'pinger.service.j2', 'dest': '/etc/sy
 
 TASK [pinger : Setup pinger script] ********************************************
 --- before
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpxv7n9_mh/pinger.sh.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpp6fc6oym/pinger.sh.j2
 @@ -0,0 +1,51 @@
 +#!/bin/bash
 +
@@ -4387,12 +4369,12 @@ changed: [stealandsell-3]
 PLAY [Keepalived & Keepalived_exporter] ****************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [keepalived : add keepalived_script user] *********************************
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [keepalived : Install Keepalived] *****************************************
 The following additional packages will be installed:
@@ -4423,42 +4405,42 @@ TASK [keepalived : Copy keepalived script file] ********************************
 +#!/bin/bash
 +ss -ntl | grep -q ':88 '
 
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 --- before
 +++ after: /home/q0000/ica0002/roles/keepalived/files/vrrp_script.sh
 @@ -0,0 +1,2 @@
 +#!/bin/bash
 +ss -ntl | grep -q ':88 '
 
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [keepalived : copy confs] *************************************************
 changed: [stealandsell-1] => (item=None)
 changed: [stealandsell-2] => (item=None)
-changed: [stealandsell-2] => (item=None)
 changed: [stealandsell-1] => (item=None)
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2] => (item=None)
+changed: [stealandsell-2]
 
 TASK [keepalived : Extract exporter into folder] *******************************
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [keepalived : execute handlers] *******************************************
 
 RUNNING HANDLER [keepalived : restart daemon] **********************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 RUNNING HANDLER [keepalived : restart keepalived] ******************************
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [keepalived : Start keepalived on boot] ***********************************
-ok: [stealandsell-2] => (item=keepalived)
 ok: [stealandsell-1] => (item=keepalived)
-changed: [stealandsell-2] => (item=keepalived_exporter)
+ok: [stealandsell-2] => (item=keepalived)
 changed: [stealandsell-1] => (item=keepalived_exporter)
+changed: [stealandsell-2] => (item=keepalived_exporter)
 
 TASK [haproxy : Install haproxy and haproxy exporter] **************************
 The following additional packages will be installed:
@@ -4468,7 +4450,7 @@ Suggested packages:
 The following NEW packages will be installed:
   haproxy liblua5.3-0 prometheus-haproxy-exporter
 0 upgraded, 3 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-2]
+changed: [stealandsell-1]
 The following additional packages will be installed:
   liblua5.3-0
 Suggested packages:
@@ -4476,55 +4458,11 @@ Suggested packages:
 The following NEW packages will be installed:
   haproxy liblua5.3-0 prometheus-haproxy-exporter
 0 upgraded, 3 newly installed, 0 to remove and 261 not upgraded.
-changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 TASK [haproxy : Copy HAproxy conf file] ****************************************
 --- before: /etc/haproxy/haproxy.cfg
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpkxz7gwnn/haproxy.conf.j2
-@@ -7,15 +7,6 @@
- 	user haproxy
- 	group haproxy
- 	daemon
--
--	# Default SSL material locations
--	ca-base /etc/ssl/certs
--	crt-base /etc/ssl/private
--
--	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
--        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
--        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
--        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
- 
- defaults
- 	log	global
-@@ -32,3 +23,23 @@
- 	errorfile 502 /etc/haproxy/errors/502.http
- 	errorfile 503 /etc/haproxy/errors/503.http
- 	errorfile 504 /etc/haproxy/errors/504.http
-+
-+frontend stats
-+    mode http
-+    bind *:9188
-+    stats enable
-+    stats uri /haproxy?stats
-+    stats refresh 5s
-+
-+
-+listen my_ha_frontend
-+    bind *:88 
-+        server stealandsell-1_0  stealandsell-1:8001 check
-+        server stealandsell-2_0  stealandsell-2:8001 check
-+        server stealandsell-1_1  stealandsell-1:8002 check
-+        server stealandsell-2_1  stealandsell-2:8002 check
-+        server stealandsell-1_2  stealandsell-1:8003 check
-+        server stealandsell-2_2  stealandsell-2:8003 check
-+	
-+
-+
-
-changed: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
---- before: /etc/haproxy/haproxy.cfg
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpd0f7cbjh/haproxy.conf.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpnxu3qm9c/haproxy.conf.j2
 @@ -7,15 +7,6 @@
  	user haproxy
  	group haproxy
@@ -4567,49 +4505,52 @@ changed: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/hapr
 +
 
 changed: [stealandsell-1] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
---- before: /etc/default/prometheus-haproxy-exporter
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmp3erkzgma/haproxy.scrape-uri.j2
-@@ -1,35 +1 @@
--# Set the command-line arguments to pass to the server.
--# Due to shell scaping, to pass backslashes for regexes, you need to double
--# them (\\d for \d). If running under systemd, you need to double them again
--# (\\\\d to mean \d), and escape newlines too.
--ARGS=""
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpjh5tlw6c/haproxy.conf.j2
+@@ -7,15 +7,6 @@
+ 	user haproxy
+ 	group haproxy
+ 	daemon
 -
--# Prometheus-haproxy-exporter supports the following options:
--#
--#  --web.listen-address=":9101"
--#    Address to listen on for web interface and telemetry.
--#  --web.telemetry-path="/metrics"
--#    Path under which to expose metrics.
--#  --haproxy.scrape-uri="http://localhost/;csv"
--#    URI on which to scrape HAProxy.
--#  --haproxy.ssl-verify
--#    Flag that enables SSL certificate verification for the scrape URI
--#  --haproxy.server-metric-fields="2,3,4,5,6,7,8,9,13,14,15,16,17,18,21,24,33,35,38,39,40,41,42,43,44"
--#    Comma-separated list of exported server metrics. See
--#    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.1
--#  --haproxy.timeout=5s
--#    Timeout for trying to get stats from HAProxy.
--#  --haproxy.pid-file=""
--#    Path to HAProxy pid file.
--#
--#    If provided, the standard process metrics get exported for the HAProxy
--#    process, prefixed with 'haproxy_process_...'. The haproxy_process exporter
--#    needs to have read access to files owned by the HAProxy process. Depends
--#    on the availability of /proc.
--#    https://prometheus.io/docs/instrumenting/writing_clientlibs/#process-metrics.
--#  --log.level="info"
--#    Only log messages with the given severity or above.
--#    Valid levels: [debug, info, warn, error, fatal]
--#  --log.format="logger:stderr"
--#    Set the log target and format. Example:
--#    "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
-+ARGS='--haproxy.scrape-uri="http://stealandsell-2.gamblinggreats.io:9188/haproxy?stats;csv"'
+-	# Default SSL material locations
+-	ca-base /etc/ssl/certs
+-	crt-base /etc/ssl/private
+-
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+ 
+ defaults
+ 	log	global
+@@ -32,3 +23,23 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++frontend stats
++    mode http
++    bind *:9188
++    stats enable
++    stats uri /haproxy?stats
++    stats refresh 5s
++
++
++listen my_ha_frontend
++    bind *:88 
++        server stealandsell-1_0  stealandsell-1:8001 check
++        server stealandsell-2_0  stealandsell-2:8001 check
++        server stealandsell-1_1  stealandsell-1:8002 check
++        server stealandsell-2_1  stealandsell-2:8002 check
++        server stealandsell-1_2  stealandsell-1:8003 check
++        server stealandsell-2_2  stealandsell-2:8003 check
++	
++
++
 
-changed: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+changed: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
 --- before: /etc/default/prometheus-haproxy-exporter
-+++ after: /home/q0000/.ansible/tmp/ansible-local-2792opsm06q_/tmpzssnlsx7/haproxy.scrape-uri.j2
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpru2_o12g/haproxy.scrape-uri.j2
 @@ -1,35 +1 @@
 -# Set the command-line arguments to pass to the server.
 -# Due to shell scaping, to pass backslashes for regexes, you need to double
@@ -4649,6 +4590,47 @@ changed: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/et
 +ARGS='--haproxy.scrape-uri="http://stealandsell-1.gamblinggreats.io:9188/haproxy?stats;csv"'
 
 changed: [stealandsell-1] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+--- before: /etc/default/prometheus-haproxy-exporter
++++ after: /home/q0000/.ansible/tmp/ansible-local-29667zz3gdz2/tmpb2njq5cc/haproxy.scrape-uri.j2
+@@ -1,35 +1 @@
+-# Set the command-line arguments to pass to the server.
+-# Due to shell scaping, to pass backslashes for regexes, you need to double
+-# them (\\d for \d). If running under systemd, you need to double them again
+-# (\\\\d to mean \d), and escape newlines too.
+-ARGS=""
+-
+-# Prometheus-haproxy-exporter supports the following options:
+-#
+-#  --web.listen-address=":9101"
+-#    Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#    Path under which to expose metrics.
+-#  --haproxy.scrape-uri="http://localhost/;csv"
+-#    URI on which to scrape HAProxy.
+-#  --haproxy.ssl-verify
+-#    Flag that enables SSL certificate verification for the scrape URI
+-#  --haproxy.server-metric-fields="2,3,4,5,6,7,8,9,13,14,15,16,17,18,21,24,33,35,38,39,40,41,42,43,44"
+-#    Comma-separated list of exported server metrics. See
+-#    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.1
+-#  --haproxy.timeout=5s
+-#    Timeout for trying to get stats from HAProxy.
+-#  --haproxy.pid-file=""
+-#    Path to HAProxy pid file.
+-#
+-#    If provided, the standard process metrics get exported for the HAProxy
+-#    process, prefixed with 'haproxy_process_...'. The haproxy_process exporter
+-#    needs to have read access to files owned by the HAProxy process. Depends
+-#    on the availability of /proc.
+-#    https://prometheus.io/docs/instrumenting/writing_clientlibs/#process-metrics.
+-#  --log.level="info"
+-#    Only log messages with the given severity or above.
+-#    Valid levels: [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#    Set the log target and format. Example:
+-#    "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
++ARGS='--haproxy.scrape-uri="http://stealandsell-2.gamblinggreats.io:9188/haproxy?stats;csv"'
+
+changed: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
 
 TASK [haproxy : Start HAproxy on boot] *****************************************
 ok: [stealandsell-1] => (item=haproxy)
@@ -4657,8 +4639,8 @@ ok: [stealandsell-1] => (item=prometheus-haproxy-exporter)
 ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
 
 RUNNING HANDLER [haproxy : restart haproxy exporter] ***************************
-changed: [stealandsell-2]
 changed: [stealandsell-1]
+changed: [stealandsell-2]
 
 RUNNING HANDLER [haproxy : restart haproxy] ************************************
 changed: [stealandsell-2]
@@ -4674,102 +4656,102 @@ stealandsell-3             : ok=75   changed=58   unreachable=0    failed=0    s
 PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 ok: [stealandsell-3]
 
 TASK [init : Update APT cache] *************************************************
-ok: [stealandsell-2]
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [init : install packages] *************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : start & enable node exporter] *************************************
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [init : Ensure ca-certificates is up-to-date] *****************************
-ok: [stealandsell-2]
-ok: [stealandsell-3]
 ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : install rsyslog] **************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : copy conf] ********************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-2]
+ok: [stealandsell-1]
 ok: [stealandsell-3]
 
 TASK [init : Start & enable] ***************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : install duplicity] ************************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : create backup user] ***********************************************
-ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-3]
 
 TASK [init : create restore directory] *****************************************
-ok: [stealandsell-2]
-ok: [stealandsell-3]
 ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : Create template known_hosts] **************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : copy conf] ********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 ok: [stealandsell-3]
 
 TASK [init : Start & enable] ***************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-2]
+ok: [stealandsell-1]
 ok: [stealandsell-3]
 
 PLAY [DNS servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [stealandsell-3]
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [bind : Install bind] *****************************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [bind : Enable Bind9] *****************************************************
+ok: [stealandsell-3]
 ok: [stealandsell-1]
 ok: [stealandsell-2]
-ok: [stealandsell-3]
 
 TASK [bind : copy confs] *******************************************************
 ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3]
-ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-2]
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
 
 TASK [bind : copy master zone file] ********************************************
 skipping: [stealandsell-1] => (item=None) 
@@ -4785,14 +4767,14 @@ ok: [stealandsell-3]
 TASK [bind : Execute handlers preemptively] ************************************
 
 TASK [bind : Install Bind9 exporter] *******************************************
-ok: [stealandsell-2]
 ok: [stealandsell-3]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [bind : Enable Bind9 exporter] ********************************************
+ok: [stealandsell-3]
 ok: [stealandsell-1]
 ok: [stealandsell-2]
-ok: [stealandsell-3]
 
 TASK [bind : Set A records] ****************************************************
 skipping: [stealandsell-1] => (item=None) 
@@ -4815,19 +4797,7 @@ skipping: [stealandsell-1] => (item=None)
 skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1]
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
@@ -4853,47 +4823,41 @@ ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3]
 
 PLAY [DNS Resolved] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-3]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [dns_resolved : Stop systemd-resolved] ************************************
 ok: [stealandsell-1]
-ok: [stealandsell-3]
 ok: [stealandsell-2]
+ok: [stealandsell-3]
 
 TASK [dns_resolved : Change DNS configuration] *********************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 PLAY [Docker] ******************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [docker : Docker package] *************************************************
+ok: [stealandsell-1]
 ok: [stealandsell-2]
 ok: [stealandsell-3]
-ok: [stealandsell-1]
 
 TASK [docker : Docker service] *************************************************
+ok: [stealandsell-1]
 ok: [stealandsell-2]
 ok: [stealandsell-3]
-ok: [stealandsell-1]
 
 PLAY [Database server] *********************************************************
 
@@ -4902,24 +4866,24 @@ ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [mysql : Install mysql server] ********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : start mysql server] **********************************************
 ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [mysql : override] ********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Install Pymsql] **************************************************
 ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [mysql : MySQL database] **************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Create MySQL users] **********************************************
 ok: [stealandsell-2] => (item=None)
@@ -4936,62 +4900,62 @@ ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [mysql : Install dependecies] *********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Create directory] ************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : copy confs] ******************************************************
-ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-2]
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
 
 TASK [mysql : Force all notified handlers to run at this point, not waiting for normal sync points] ***
 
 TASK [mysql : Enabled] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : create backup/mysql directory] ***********************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Move backup.my.cnf file] *****************************************
 ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [mysql : Create user backup] **********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : create backup file] **********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 PLAY [agama] *******************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [agama : Create agama dierectory] *****************************************
 ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [agama : download dockerfile and agama itself] ****************************
-ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
 ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
 ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
 ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
 
 TASK [agama : build agama] *****************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-2]
+ok: [stealandsell-1]
 
 TASK [agama : run agama instances] *********************************************
 ok: [stealandsell-2] => (item=None)
@@ -5121,16 +5085,16 @@ ok: [stealandsell-3]
 PLAY [Keepalived & Keepalived_exporter] ****************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [keepalived : add keepalived_script user] *********************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [keepalived : Install Keepalived] *****************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [keepalived : Copy keepalived script file] ********************************
 ok: [stealandsell-1]
@@ -5140,8 +5104,8 @@ TASK [keepalived : copy confs] *************************************************
 ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2]
+ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
 
 TASK [keepalived : Extract exporter into folder] *******************************
@@ -5157,20 +5121,20 @@ ok: [stealandsell-1] => (item=keepalived_exporter)
 ok: [stealandsell-2] => (item=keepalived_exporter)
 
 TASK [haproxy : Install haproxy and haproxy exporter] **************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [haproxy : Copy HAproxy conf file] ****************************************
-ok: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
 ok: [stealandsell-1] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
-ok: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+ok: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
 ok: [stealandsell-1] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+ok: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
 
 TASK [haproxy : Start HAproxy on boot] *****************************************
-ok: [stealandsell-2] => (item=haproxy)
 ok: [stealandsell-1] => (item=haproxy)
-ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-2] => (item=haproxy)
 ok: [stealandsell-1] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
 
 PLAY RECAP *********************************************************************
 stealandsell-1             : ok=57   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
@@ -5178,19 +5142,19 @@ stealandsell-2             : ok=57   changed=0    unreachable=0    failed=0    s
 stealandsell-3             : ok=60   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + ansible all -b -m reboot -a test_command=uptime
-stealandsell-1 | CHANGED => {
-    "changed": true,
-    "elapsed": 41,
-    "rebooted": true
-}
 stealandsell-3 | CHANGED => {
     "changed": true,
-    "elapsed": 47,
+    "elapsed": 34,
+    "rebooted": true
+}
+stealandsell-1 | CHANGED => {
+    "changed": true,
+    "elapsed": 34,
     "rebooted": true
 }
 stealandsell-2 | CHANGED => {
     "changed": true,
-    "elapsed": 49,
+    "elapsed": 34,
     "rebooted": true
 }
 + ansible-playbook infra.yaml --diff
@@ -5203,44 +5167,44 @@ ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [init : Update APT cache] *************************************************
-ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-3]
 
 TASK [init : install packages] *************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 ok: [stealandsell-3]
 
 TASK [init : start & enable node exporter] *************************************
+ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
-ok: [stealandsell-3]
 
 TASK [init : Ensure ca-certificates is up-to-date] *****************************
+ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
-ok: [stealandsell-3]
 
 TASK [init : install rsyslog] **************************************************
+ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
-ok: [stealandsell-3]
 
 TASK [init : copy conf] ********************************************************
+ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
-ok: [stealandsell-3]
 
 TASK [init : Start & enable] ***************************************************
-ok: [stealandsell-2]
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [init : install duplicity] ************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : create backup user] ***********************************************
 ok: [stealandsell-2]
@@ -5249,18 +5213,18 @@ ok: [stealandsell-1]
 
 TASK [init : create restore directory] *****************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : Create template known_hosts] **************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [init : copy conf] ********************************************************
-ok: [stealandsell-2]
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [init : Start & enable] ***************************************************
 ok: [stealandsell-1]
@@ -5270,8 +5234,8 @@ ok: [stealandsell-3]
 PLAY [DNS servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [bind : Install bind] *****************************************************
@@ -5280,20 +5244,20 @@ ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [bind : Enable Bind9] *****************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-3]
 ok: [stealandsell-2]
+ok: [stealandsell-1]
 
 TASK [bind : copy confs] *******************************************************
-ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-1] => (item=None)
+ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-2]
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
 
 TASK [bind : copy master zone file] ********************************************
 skipping: [stealandsell-1] => (item=None) 
@@ -5309,20 +5273,20 @@ ok: [stealandsell-3]
 TASK [bind : Execute handlers preemptively] ************************************
 
 TASK [bind : Install Bind9 exporter] *******************************************
-ok: [stealandsell-2]
-ok: [stealandsell-3]
 ok: [stealandsell-1]
+ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [bind : Enable Bind9 exporter] ********************************************
-ok: [stealandsell-2]
-ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [bind : Set A records] ****************************************************
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1]
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2]
+skipping: [stealandsell-1] => (item=None) 
+skipping: [stealandsell-1]
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3]
 
@@ -5339,12 +5303,6 @@ skipping: [stealandsell-1] => (item=None)
 skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
-skipping: [stealandsell-1] => (item=None) 
 skipping: [stealandsell-1]
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
@@ -5358,19 +5316,7 @@ skipping: [stealandsell-2] => (item=None)
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
-skipping: [stealandsell-2] => (item=None) 
 skipping: [stealandsell-2]
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
-ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3] => (item=None)
 ok: [stealandsell-3] => (item=None)
@@ -5389,30 +5335,30 @@ PLAY [DNS Resolved] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [dns_resolved : Stop systemd-resolved] ************************************
+ok: [stealandsell-3]
 ok: [stealandsell-2]
 ok: [stealandsell-1]
-ok: [stealandsell-3]
 
 TASK [dns_resolved : Change DNS configuration] *********************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 PLAY [Docker] ******************************************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [stealandsell-3]
 ok: [stealandsell-1]
 ok: [stealandsell-2]
-ok: [stealandsell-3]
 
 TASK [docker : Docker package] *************************************************
 ok: [stealandsell-1]
-ok: [stealandsell-2]
 ok: [stealandsell-3]
+ok: [stealandsell-2]
 
 TASK [docker : Docker service] *************************************************
 ok: [stealandsell-1]
@@ -5422,12 +5368,12 @@ ok: [stealandsell-3]
 PLAY [Database server] *********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-1]
 ok: [stealandsell-2]
+ok: [stealandsell-1]
 
 TASK [mysql : Install mysql server] ********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : start mysql server] **********************************************
 ok: [stealandsell-1]
@@ -5456,38 +5402,38 @@ ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-2]
 
 TASK [mysql : replica  read-only ON] *******************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Install dependecies] *********************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Create directory] ************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : copy confs] ******************************************************
+ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-1] => (item=None)
-ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-2]
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
 
 TASK [mysql : Force all notified handlers to run at this point, not waiting for normal sync points] ***
 
 TASK [mysql : Enabled] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : create backup/mysql directory] ***********************************
 ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [mysql : Move backup.my.cnf file] *****************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [mysql : Create user backup] **********************************************
 ok: [stealandsell-1]
@@ -5508,14 +5454,14 @@ ok: [stealandsell-1]
 ok: [stealandsell-2]
 
 TASK [agama : download dockerfile and agama itself] ****************************
-ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
 ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
-ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': '/opt/agama/Dockerfile'})
 ok: [stealandsell-2] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
+ok: [stealandsell-1] => (item={'src': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': '/opt/agama'})
 
 TASK [agama : build agama] *****************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [agama : run agama instances] *********************************************
 ok: [stealandsell-2] => (item=None)
@@ -5523,8 +5469,8 @@ ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2]
+ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
 
 PLAY [nginx conf] **************************************************************
@@ -5645,8 +5591,8 @@ ok: [stealandsell-3]
 PLAY [Keepalived & Keepalived_exporter] ****************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [stealandsell-2]
 ok: [stealandsell-1]
+ok: [stealandsell-2]
 
 TASK [keepalived : add keepalived_script user] *********************************
 ok: [stealandsell-1]
@@ -5661,12 +5607,12 @@ ok: [stealandsell-2]
 ok: [stealandsell-1]
 
 TASK [keepalived : copy confs] *************************************************
-ok: [stealandsell-2] => (item=None)
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-2] => (item=None)
-ok: [stealandsell-2]
 ok: [stealandsell-1] => (item=None)
 ok: [stealandsell-1]
+ok: [stealandsell-2] => (item=None)
+ok: [stealandsell-2]
 
 TASK [keepalived : Extract exporter into folder] *******************************
 ok: [stealandsell-2]
@@ -5675,10 +5621,10 @@ ok: [stealandsell-1]
 TASK [keepalived : execute handlers] *******************************************
 
 TASK [keepalived : Start keepalived on boot] ***********************************
-ok: [stealandsell-2] => (item=keepalived)
 ok: [stealandsell-1] => (item=keepalived)
-ok: [stealandsell-2] => (item=keepalived_exporter)
+ok: [stealandsell-2] => (item=keepalived)
 ok: [stealandsell-1] => (item=keepalived_exporter)
+ok: [stealandsell-2] => (item=keepalived_exporter)
 
 TASK [haproxy : Install haproxy and haproxy exporter] **************************
 ok: [stealandsell-2]
@@ -5687,14 +5633,14 @@ ok: [stealandsell-1]
 TASK [haproxy : Copy HAproxy conf file] ****************************************
 ok: [stealandsell-1] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
 ok: [stealandsell-2] => (item={'src': 'haproxy.conf.j2', 'dest': '/etc/haproxy/haproxy.cfg'})
-ok: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
 ok: [stealandsell-1] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
+ok: [stealandsell-2] => (item={'src': 'haproxy.scrape-uri.j2', 'dest': '/etc/default/prometheus-haproxy-exporter'})
 
 TASK [haproxy : Start HAproxy on boot] *****************************************
-ok: [stealandsell-2] => (item=haproxy)
 ok: [stealandsell-1] => (item=haproxy)
-ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-2] => (item=haproxy)
 ok: [stealandsell-1] => (item=prometheus-haproxy-exporter)
+ok: [stealandsell-2] => (item=prometheus-haproxy-exporter)
 
 PLAY RECAP *********************************************************************
 stealandsell-1             : ok=57   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
@@ -5702,4 +5648,4 @@ stealandsell-2             : ok=57   changed=0    unreachable=0    failed=0    s
 stealandsell-3             : ok=60   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + date
-N 14 dets  2023 21:10:28 EET
+R 15 dets  2023 14:35:53 EET
