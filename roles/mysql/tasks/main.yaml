@@ -41,7 +41,6 @@
     - { name: "{{ mysql_user }}", password: "{{ mysql_password }}", priv: "{{ mysql_database }}.*:ALL" }
     - { name: "{{ mysql_ex_u }}", password: "{{ mysql_ex_p }}", priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT" }
     - { name: "{{ mysql_replication_u }}", password: "{{ mysql_replication_p }}", priv: "*.*:REPLICATION SLAVE" }
-  notify: restart mysql
   no_log: true
     
 - name: replica  read-only ON
