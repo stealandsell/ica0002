@@ -103,4 +103,3 @@
     name: rsyslog
     state: started
     enabled: yes
-
