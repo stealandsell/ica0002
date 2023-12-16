@@ -58,7 +58,7 @@
     hosts: grafana
     roles:
       - grafana
-    tags: g
+    tags: grafana
 
   - name: InfluxDB, Telegraf, pinger
     hosts: influxdb

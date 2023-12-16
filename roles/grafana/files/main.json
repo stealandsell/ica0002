@@ -957,7 +957,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "rate(influxdb_write_write_ok{instance=\"stealandsell-3:9424\"}[15m])",
+          "expr": "rate(influxdb_write_write_ok{instance=\"influxdb:9424\"}[15m])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
