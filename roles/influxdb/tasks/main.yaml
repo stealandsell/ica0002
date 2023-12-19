@@ -14,8 +14,6 @@
   loop:
     - { deb: "/opt/influxdb_1.8.10_amd64.deb" }
     - { deb: "/opt/telegraf_1.28.2-1_amd64.deb" }
-
-
   
 - name: Reconfigure telegraf & influxdb
   template:
@@ -26,7 +24,6 @@
     - { src: "influxdb.conf", dest: "/etc/telegraf/influxdb.conf" }
   notify: restart telegraf
   
-
 - name: Start and enable services
   service:
     name: "{{ item }}"
@@ -35,7 +32,6 @@
   loop:
     - influxdb
     - telegraf
-    
     
 ### influxdb exporter part
 
@@ -58,8 +54,7 @@
     name: prometheus-influxdb-stats-exporter
     state: started
     enabled: yes
-    
-    
+
 ### influxdb backup part
 
 - name: create /backup/influxdb directory     
@@ -69,7 +64,7 @@
     mode: 0700
     owner: backup
     group: backup
-    
+
 - name: Create backup file
   template:
     src: influxdb-backup

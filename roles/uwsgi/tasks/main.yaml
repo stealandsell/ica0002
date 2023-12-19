@@ -5,6 +5,12 @@
     - uwsgi-plugin-python3
     - python3-pymysql
 
+- name: start n enable uwsgi
+  service:
+    name: uwsgi
+    state: started
+    enabled: yes
+
 - name: copy the uwsgi config file
   template:
     src:  agama.ini
@@ -14,8 +20,4 @@
   no_log: true
   notify: restart uwsgi
 
-- name: start n enable uwsgi
-  service:
-    name: uwsgi
-    state: started
-    enabled: yes
+

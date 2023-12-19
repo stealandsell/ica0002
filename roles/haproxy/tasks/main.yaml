@@ -4,6 +4,14 @@
       - haproxy
       - prometheus-haproxy-exporter
 
+- name: Start HAproxy on boot
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - haproxy
+    - prometheus-haproxy-exporter
 
 - name: Copy HAproxy conf file
   template:
@@ -16,12 +24,3 @@
     - restart haproxy
     - restart haproxy exporter
 
-
-- name: Start HAproxy on boot
-  service:
-    name: "{{ item }}"
-    state: started
-    enabled: yes
-  loop:
-    - haproxy
-    - prometheus-haproxy-exporter

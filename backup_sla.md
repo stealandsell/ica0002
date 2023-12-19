@@ -6,7 +6,7 @@
 
 + The incremental backup system restores data prior to the point where it was lost
 
-+ The maximum amount of data we can lose is 23 hours
++ The maximum amount of data we can lose is 24 hours
 
 ------------------------------------------[Versioning and retention]
 

@@ -2,6 +2,12 @@
   ansible.builtin.apt:
     name: nginx
     state: latest
+    
+- name: start n enable nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
 
 - name: Copy Nginx default config to sites-enabled
   template:
@@ -9,11 +15,7 @@
     dest: /etc/nginx/sites-enabled/default
   notify: restart nginx
 
-- name: start n enable nginx
-  service:
-    name: nginx
-    state: started
-    enabled: yes
+
     
 ### nginx exporter part
 

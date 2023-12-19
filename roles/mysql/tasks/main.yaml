@@ -2,7 +2,9 @@
 
 - name: Install mysql server
   apt:
-    name: mysql-server
+    name:
+      - mysql-server
+      - python3-pymysql
 
 - name: start mysql server
   service:
@@ -15,11 +17,6 @@
     src:  override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify: restart mysql
-
-- name: Install Pymsql
-  apt:
-    pkg: 
-    - python3-pymysql
 
 - name: MySQL database
   community.mysql.mysql_db:
@@ -66,8 +63,6 @@
     path: /var/lib/prometheus
     state: directory
 
-
-
 - name: copy confs
   template:
     src: "{{ item.src }}"
@@ -90,7 +85,6 @@
     name: prometheus-mysqld-exporter
     state: started
     enabled: yes
-    
     
 ### mysql backup 
 

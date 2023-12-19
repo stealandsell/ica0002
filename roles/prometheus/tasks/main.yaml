@@ -3,6 +3,12 @@
     name: 
       - prometheus
 
+- name: start prometheus
+  service:
+    name: prometheus
+    state: started
+    enabled: yes
+
 - name: copy confs
   template:
     src: "{{ item.src }}"
@@ -15,12 +21,7 @@
     - restart prometheus
     - restart nginx
 
-
 - name: execute handlers
   meta: flush_handlers
 
-- name: start prometheus
-  service:
-    name: prometheus
-    state: started
-    enabled: yes
+

@@ -1,6 +1,6 @@
-stealandsell-1 ansible_host=193.40.156.67 ansible_port=36322 ansible_user=ubuntu
-stealandsell-2 ansible_host=193.40.156.67 ansible_port=36822 ansible_user=ubuntu
-stealandsell-3 ansible_host=193.40.156.67 ansible_port=33222 ansible_user=ubuntu
+stealandsell-1 ansible_host=193.40.156.67 ansible_port=18022 ansible_user=ubuntu
+stealandsell-2 ansible_host=193.40.156.67 ansible_port=13922 ansible_user=ubuntu
+stealandsell-3 ansible_host=193.40.156.67 ansible_port=3822 ansible_user=ubuntu
 
 [web_servers]
 stealandsell-1

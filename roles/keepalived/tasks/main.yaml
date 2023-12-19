@@ -9,6 +9,13 @@
   apt: 
     name: keepalived
 
+- name: Start keepalived on boot
+  service:
+    name: keepalived
+    state: started
+    enabled: yes
+
+
 - name: Copy keepalived script file
   copy:
     src: vrrp_script.sh
@@ -19,7 +26,6 @@
   notify: 
     - restart daemon
     - restart keepalived
-
 
 
 - name: copy confs
@@ -45,9 +51,9 @@
 
 - name: Start keepalived on boot
   service:
-    name: "{{ item }}"
+    name: keepalived_exporter
     state: started
     enabled: yes
-  loop:
-    - keepalived
-    - keepalived_exporter
+
+
+
